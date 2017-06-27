@@ -1,7 +1,7 @@
 {
    "abstract" : "Perl extension for blah blah blah",
    "author" : [
-      "Ilya Pavlov, <iluxz@mail.ru<gt>"
+      "Ilya Pavlov, < iluxz@mail.ru >"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.143240",
@@ -63,7 +63,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.000001",
+   "version" : "0.000002",
    "x_contributors" : [
       "Ilya <ilya@orz1e1.mydomain>",
       "Ilya Pavlov <iluxz@mail.ru>"

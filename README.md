@@ -30,7 +30,7 @@ If you have a web site set up for your module, mention it here.
 
 # AUTHOR
 
-Ilya Pavlov, &lt;iluxz@mail.ru&lt;gt>
+Ilya Pavlov, < iluxz@mail.ru >
 
 # COPYRIGHT AND LICENSE
 
