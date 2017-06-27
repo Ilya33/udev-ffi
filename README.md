@@ -1,6 +1,10 @@
 # NAME
 
-Udev::FFI - Perl extension for blah blah blah
+Udev::FFI - Perl bindings for libudev using ffi
+
+# VERSION
+
+version pre-alpha
 
 # SYNOPSIS
 
@@ -8,6 +12,8 @@ Udev::FFI - Perl extension for blah blah blah
     blah blah blah
 
 # DESCRIPTION
+
+See examples.
 
 Stub documentation for Udev::FFI.
 

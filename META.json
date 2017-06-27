@@ -1,5 +1,5 @@
 {
-   "abstract" : "Perl extension for blah blah blah",
+   "abstract" : "Perl bindings for libudev using ffi",
    "author" : [
       "Ilya Pavlov, < iluxz@mail.ru >"
    ],
@@ -63,7 +63,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.000002",
+   "version" : "0.000003",
    "x_contributors" : [
       "Ilya <ilya@orz1e1.mydomain>",
       "Ilya Pavlov <iluxz@mail.ru>"
