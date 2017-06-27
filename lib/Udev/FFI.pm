@@ -107,11 +107,13 @@ __END__
 
 
 
-# Below is stub documentation for your module. You'd better edit it!
-
 =head1 NAME
 
-Udev::FFI - Perl extension for blah blah blah
+Udev::FFI - Perl bindings for libudev using ffi
+
+=head1 VERSION
+
+version pre-alpha
 
 =head1 SYNOPSIS
 
@@ -119,6 +121,8 @@ Udev::FFI - Perl extension for blah blah blah
   blah blah blah
 
 =head1 DESCRIPTION
+
+See examples.
 
 Stub documentation for Udev::FFI.
 
