@@ -1,12 +1,12 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Perl extension for blah blah blah",
    "author" : [
-      "Ilya <>"
+      "Ilya Pavlov, <iluxz@mail.ru<gt>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.143240",
    "license" : [
-      "perl_5"
+      "unknown"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -52,5 +52,20 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.0001"
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Ilya33/udev-ffi/issues"
+      },
+      "homepage" : "https://github.com/Ilya33/udev-ffi",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/Ilya33/udev-ffi.git",
+         "web" : "https://github.com/Ilya33/udev-ffi"
+      }
+   },
+   "version" : "0.000001",
+   "x_contributors" : [
+      "Ilya <ilya@orz1e1.mydomain>",
+      "Ilya Pavlov <iluxz@mail.ru>"
+   ]
 }
