@@ -143,7 +143,7 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Ilya Pavlov, E<lt>iluxz@mail.ru<gt>
+Ilya Pavlov, E<lt> iluxz@mail.ru E<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
