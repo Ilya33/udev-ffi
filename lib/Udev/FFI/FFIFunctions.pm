@@ -17,6 +17,8 @@ require Exporter;
 udev_new
 udev_ref
 udev_unref
+udev_get_userdata
+udev_set_userdata
 udev_device_ref
 udev_device_unref
 udev_device_get_udev
@@ -85,6 +87,12 @@ sub load_lib {
 
         # struct udev *udev_unref(struct udev *udev);
         $ffi->attach('udev_unref' => ['opaque'] => 'opaque');
+
+        # void *udev_get_userdata(struct udev *udev);
+        $ffi->attach('udev_get_userdata'   => ['opaque']           => 'opaque');
+
+        # void udev_set_userdata(struct udev *udev, void *userdata);
+        $ffi->attach('udev_set_userdata'   => ['opaque', 'opaque'] => 'void');
 
 
         # udev_device ==========================================================

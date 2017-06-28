@@ -42,6 +42,7 @@
       },
       "runtime" : {
          "requires" : {
+            "FFI::Platypus" : "0",
             "perl" : "5.008001"
          }
       },
@@ -63,9 +64,9 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.000003",
+   "version" : "0.000004",
    "x_contributors" : [
-      "Ilya <ilya@orz1e1.mydomain>",
-      "Ilya Pavlov <iluxz@mail.ru>"
+      "Ilya <iluxz@mail.ru>",
+      "Ilya <ilya@orz1e1.mydomain>"
    ]
 }
