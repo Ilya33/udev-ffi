@@ -1,7 +1,3 @@
-# Udev::FFI - Copyright (C) 2017 Ilya Pavlov
-# Udev::FFI is licensed under the
-# GNU Lesser General Public License v2.1
-
 package Udev::FFI::Monitor;
 
 use strict;
@@ -15,26 +11,11 @@ use Udev::FFI::Device;
 
 sub new {
     my $class = shift;
-    my $context = shift;
-    my $source = shift || 'udev';
-
-    if($source ne 'udev' && $source ne 'kernel') {
-        $@ = 'Valid sources identifiers are "udev" and "kernel"';
-        return undef;
-    }
 
     my $self = {
-        _context => $context,
+        _monitor => shift,
         _started => 0
     };
-
-    udev_ref($context);
-
-    $self->{_monitor} = udev_monitor_new_from_netlink($context, $source);
-    if(!defined($self->{_monitor})) {
-        $@ = "Can't create udev monitor from netlink.";
-        return undef;
-    }
 
     bless $self, $class;
 
@@ -148,7 +129,9 @@ sub poll {
     }
 
     if($self->{_select}->can_read($timeout)) {
-        return Udev::FFI::Device->new( $self->{_monitor} );
+        my $device = udev_monitor_receive_device( $self->{_monitor} );
+
+        return Udev::FFI::Device->new( $device );
     }
 
     return undef;
@@ -168,7 +151,6 @@ sub DESTROY {
     my $self = shift;
 
     udev_monitor_unref( $self->{_monitor} );
-    udev_unref( $self->{_context} );
 }
 
 

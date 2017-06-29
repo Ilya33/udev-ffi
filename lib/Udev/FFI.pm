@@ -8,6 +8,7 @@ use strict;
 use warnings;
 
 use Udev::FFI::FFIFunctions;
+use Udev::FFI::Device;
 use Udev::FFI::Monitor;
 
 use IPC::Cmd qw(can_run run);
@@ -83,10 +84,36 @@ sub new {
 
 
 
+sub new_device_from_syspath {
+    my $self = shift;
+    my $syspath = shift;
+
+    my $device = udev_device_new_from_syspath($self->{_context}, $syspath);
+    if(defined($device)) {
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+
 sub new_monitor {
     my $self = shift;
+    my $source = shift || 'udev';
 
-    return Udev::FFI::Monitor->new($self->{_context});
+    if($source ne 'udev' && $source ne 'kernel') {
+        $@ = 'Valid sources identifiers are "udev" and "kernel"';
+        return undef;
+    }
+
+    my $monitor = udev_monitor_new_from_netlink($self->{_context}, $source);
+    unless(defined($monitor)) {
+        $@ = "Can't create udev monitor from netlink.";
+        return undef;
+    }
+
+    return Udev::FFI::Monitor->new($monitor);
 }
 
 
@@ -147,7 +174,7 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-Ilya Pavlov, E<lt> iluxz@mail.ru E<gt>
+Ilya Pavlov, E<lt>iluxz@mail.ruE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,7 +1,3 @@
-# Udev::FFI - Copyright (C) 2017 Ilya Pavlov
-# Udev::FFI is licensed under the
-# GNU Lesser General Public License v2.1
-
 package Udev::FFI::FFIFunctions;
 
 use strict;
@@ -17,8 +13,6 @@ require Exporter;
 udev_new
 udev_ref
 udev_unref
-udev_get_userdata
-udev_set_userdata
 udev_device_ref
 udev_device_unref
 udev_device_get_udev
@@ -88,11 +82,13 @@ sub load_lib {
         # struct udev *udev_unref(struct udev *udev);
         $ffi->attach('udev_unref' => ['opaque'] => 'opaque');
 
-        # void *udev_get_userdata(struct udev *udev);
-        $ffi->attach('udev_get_userdata'   => ['opaque']           => 'opaque');
 
-        # void udev_set_userdata(struct udev *udev, void *userdata);
-        $ffi->attach('udev_set_userdata'   => ['opaque', 'opaque'] => 'void');
+        # access to libudev generated lists ====================================
+
+        # struct udev_list_entry *udev_list_entry_get_next(struct udev_list_entry *list_entry);
+        # struct udev_list_entry *udev_list_entry_get_by_name(struct udev_list_entry *list_entry, const char *name);
+        # const char *udev_list_entry_get_name(struct udev_list_entry *list_entry);
+        # const char *udev_list_entry_get_value(struct udev_list_entry *list_entry);
 
 
         # udev_device ==========================================================

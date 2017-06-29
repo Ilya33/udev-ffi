@@ -1,7 +1,3 @@
-# Udev::FFI - Copyright (C) 2017 Ilya Pavlov
-# Udev::FFI is licensed under the
-# GNU Lesser General Public License v2.1
-
 package Udev::FFI::Device;
 
 use strict;
@@ -13,19 +9,22 @@ use Udev::FFI::FFIFunctions;
 
 sub new {
     my $class = shift;
-    my $monitor = shift;
 
     my $self = {
-        _device => udev_monitor_receive_device($monitor)
+        _device => shift
     };
-
-    if(!defined($self->{_device})) {
-        return undef;
-    }
 
     bless $self, $class;
 
     return $self;
+}
+
+
+
+sub get_udev {
+    my $self = shift;
+
+    return udev_device_get_udev($self->{_device});
 }
 
 
