@@ -1,7 +1,7 @@
 {
    "abstract" : "Perl bindings for libudev using ffi",
    "author" : [
-      "Ilya Pavlov, < iluxz@mail.ru >"
+      "Ilya Pavlov, <iluxz@mail.ru>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.143240",
@@ -28,7 +28,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.035"
+            "Module::Build" : "0.4005"
          }
       },
       "develop" : {
@@ -64,9 +64,8 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.000004",
+   "version" : "0.000005",
    "x_contributors" : [
-      "Ilya <iluxz@mail.ru>",
       "Ilya <ilya@orz1e1.mydomain>"
    ]
 }

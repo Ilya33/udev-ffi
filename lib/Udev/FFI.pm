@@ -14,7 +14,7 @@ use Udev::FFI::Monitor;
 use IPC::Cmd qw(can_run run);
 
 
-$Udev::FFI::VERSION = '0.000004';
+$Udev::FFI::VERSION = '0.000005';
 
 
 use constant {

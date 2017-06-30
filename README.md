@@ -36,7 +36,7 @@ If you have a web site set up for your module, mention it here.
 
 # AUTHOR
 
-Ilya Pavlov, < iluxz@mail.ru >
+Ilya Pavlov, <iluxz@mail.ru>
 
 # COPYRIGHT AND LICENSE
 
