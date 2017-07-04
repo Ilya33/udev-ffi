@@ -100,6 +100,13 @@ sub get_driver {
 }
 
 
+sub get_devnum {
+    my $self = shift;
+
+    return udev_device_get_devnum($self->{_device});
+}
+
+
 sub get_action {
     my $self = shift;
 

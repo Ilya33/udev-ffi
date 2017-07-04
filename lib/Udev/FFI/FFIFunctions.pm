@@ -30,6 +30,7 @@ udev_device_get_devnode
 udev_device_get_is_initialized
 udev_device_get_property_value
 udev_device_get_driver
+udev_device_get_devnum
 udev_device_get_action
 udev_device_get_seqnum
 udev_device_get_usec_since_initialized
@@ -73,6 +74,12 @@ sub load_lib {
         $ffi->lib($libudev);
 
 
+        if(8 != $ffi->sizeof('dev_t')) {
+            #TODO only 2 dev_t funct return undef and set $@
+            return 0;
+        }
+
+
         # struct udev *udev_new(void);
         $ffi->attach('udev_new'   => []         => 'opaque');
 
@@ -106,7 +113,7 @@ sub load_lib {
         $ffi->attach('udev_device_new_from_syspath' => ['opaque', 'string'] => 'opaque');
 
         # struct udev_device *udev_device_new_from_devnum(struct udev *udev, char type, dev_t devnum);
-        #$ffi->attach('udev_device_new_from_devnum' => ['opaque', 'string'] => 'opaque');
+        $ffi->attach('udev_device_new_from_devnum' => ['opaque', 'signed char', 'uint64_t'] => 'opaque');
 
         # struct udev_device *udev_device_new_from_subsystem_sysname(struct udev *udev, const char *subsystem, const char *sysname);
         $ffi->attach('udev_device_new_from_subsystem_sysname' => ['opaque', 'string', 'string'] => 'opaque');
@@ -143,11 +150,17 @@ sub load_lib {
         #int udev_device_get_is_initialized(struct udev_device *udev_device);
         $ffi->attach('udev_device_get_is_initialized' => ['opaque'] => 'int');
 
-        #TODO
-        #struct udev_list_entry *udev_device_get_devlinks_list_entry(struct udev_device *udev_device);
-        #struct udev_list_entry *udev_device_get_properties_list_entry(struct udev_device *udev_device);
-        #struct udev_list_entry *udev_device_get_tags_list_entry(struct udev_device *udev_device);
-        #struct udev_list_entry *udev_device_get_sysattr_list_entry(struct udev_device *udev_device);
+        # struct udev_list_entry *udev_device_get_devlinks_list_entry(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_devlinks_list_entry'   => ['opaque'] => 'opaque');
+
+        # struct udev_list_entry *udev_device_get_properties_list_entry(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_properties_list_entry' => ['opaque'] => 'opaque');
+
+        # struct udev_list_entry *udev_device_get_tags_list_entry(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_tags_list_entry'       => ['opaque'] => 'opaque');
+
+        # struct udev_list_entry *udev_device_get_sysattr_list_entry(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_sysattr_list_entry'    => ['opaque'] => 'opaque');
 
         #const char *udev_device_get_property_value(struct udev_device *udev_device, const char *key);
         $ffi->attach('udev_device_get_property_value' => ['opaque', 'string'] => 'string');
@@ -155,7 +168,8 @@ sub load_lib {
         #const char *udev_device_get_driver(struct udev_device *udev_device);
         $ffi->attach('udev_device_get_driver' => ['opaque'] => 'string');
 
-        #dev_t udev_device_get_devnum(struct udev_device *udev_device);
+        # dev_t udev_device_get_devnum(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_devnum' => ['opaque'] => 'uint64_t');
 
         #const char *udev_device_get_action(struct udev_device *udev_device);
         $ffi->attach('udev_device_get_action' => ['opaque'] => 'string');

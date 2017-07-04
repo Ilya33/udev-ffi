@@ -98,6 +98,25 @@ sub new_device_from_syspath {
 
 
 
+#udev_device_new_from_devnum
+
+
+
+sub new_device_from_subsystem_sysname {
+    my $self = shift;
+    my $subsystem = shift;
+    my $sysname = shift;
+
+    my $device = udev_device_new_from_syspath($self->{_context}, $subsystem, $sysname);
+    if(defined($device)) {
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+
 sub new_monitor {
     my $self = shift;
     my $source = shift || 'udev';
