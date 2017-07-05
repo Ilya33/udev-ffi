@@ -98,7 +98,18 @@ sub new_device_from_syspath {
 
 
 
-#udev_device_new_from_devnum
+sub new_device_from_devnum {
+    my $self = shift;
+    my $type = shift;
+    my $devnum = shift;
+
+    my $device = udev_device_new_from_devnum($self->{_context}, ord($type), $devnum);
+    if(defined($device)) {
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
 
 
 
@@ -107,7 +118,7 @@ sub new_device_from_subsystem_sysname {
     my $subsystem = shift;
     my $sysname = shift;
 
-    my $device = udev_device_new_from_syspath($self->{_context}, $subsystem, $sysname);
+    my $device = udev_device_new_from_subsystem_sysname($self->{_context}, $subsystem, $sysname);
     if(defined($device)) {
         return Udev::FFI::Device->new( $device );
     }

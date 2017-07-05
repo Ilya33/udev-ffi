@@ -17,6 +17,7 @@ udev_device_ref
 udev_device_unref
 udev_device_get_udev
 udev_device_new_from_syspath
+udev_device_new_from_devnum
 udev_device_new_from_subsystem_sysname
 udev_device_new_from_device_id
 udev_device_new_from_environment

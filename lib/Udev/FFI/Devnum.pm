@@ -14,9 +14,7 @@ require Exporter;
 );
 
 
-@EXPORT_OK = (qw(
-    major minor mkdev
-), map {@{$_}} values %EXPORT_TAGS);
+@EXPORT_OK = ( map {@{$_}} values %EXPORT_TAGS );
 
 
 
