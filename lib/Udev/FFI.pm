@@ -128,6 +128,33 @@ sub new_device_from_subsystem_sysname {
 
 
 
+sub new_device_from_device_id {
+    my $self = shift;
+    my $id = shift;
+
+    my $device = udev_device_new_from_device_id($self->{_context}, $id);
+    if(defined($device)) {
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+
+sub new_device_from_environment {
+    my $self = shift;
+
+    my $device = udev_device_new_from_environment($self->{_context});
+    if(defined($device)) {
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+
 sub new_monitor {
     my $self = shift;
     my $source = shift || 'udev';

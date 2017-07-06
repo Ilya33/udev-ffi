@@ -154,6 +154,37 @@ sub has_tag {
 
 
 
+sub get_parent {
+    my $self = shift;
+
+    my $device = udev_device_get_parent( $self->{_device} );
+    if(defined($device)) {
+        udev_device_ref($device);
+
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+sub get_parent_with_subsystem_devtype {
+    my $self = shift;
+    my $subsystem = shift;
+    my $devtype = shift;
+
+    my $device = udev_device_get_parent_with_subsystem_devtype( $self->{_device}, $subsystem, $devtype );
+    if(defined($device)) {
+        udev_device_ref($device);
+
+        return Udev::FFI::Device->new( $device );
+    }
+
+    return undef;
+}
+
+
+
 sub DESTROY {
     my $self = shift;
 

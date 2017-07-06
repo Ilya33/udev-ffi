@@ -21,6 +21,8 @@ udev_device_new_from_devnum
 udev_device_new_from_subsystem_sysname
 udev_device_new_from_device_id
 udev_device_new_from_environment
+udev_device_get_parent
+udev_device_get_parent_with_subsystem_devtype
 udev_device_get_devpath
 udev_device_get_subsystem
 udev_device_get_devtype
@@ -124,6 +126,13 @@ sub load_lib {
 
         # struct udev_device *udev_device_new_from_environment(struct udev *udev);
         $ffi->attach('udev_device_new_from_environment' => ['opaque'] => 'opaque');
+
+        # struct udev_device *udev_device_get_parent(struct udev_device *udev_device);
+        $ffi->attach('udev_device_get_parent' => ['opaque'] => 'opaque');
+
+        # struct udev_device *udev_device_get_parent_with_subsystem_devtype(struct udev_device *udev_device,
+            # const char *subsystem, const char *devtype);
+        $ffi->attach('udev_device_get_parent_with_subsystem_devtype' => ['opaque', 'string', 'string'] => 'opaque');
 
         # retrieve device properties
 
