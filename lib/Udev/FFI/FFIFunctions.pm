@@ -13,6 +13,10 @@ require Exporter;
 udev_new
 udev_ref
 udev_unref
+udev_list_entry_get_next
+udev_list_entry_get_by_name
+udev_list_entry_get_name
+udev_list_entry_get_value
 udev_device_ref
 udev_device_unref
 udev_device_get_udev
@@ -31,6 +35,10 @@ udev_device_get_sysname
 udev_device_get_sysnum
 udev_device_get_devnode
 udev_device_get_is_initialized
+udev_device_get_devlinks_list_entry
+udev_device_get_properties_list_entry
+udev_device_get_tags_list_entry
+udev_device_get_sysattr_list_entry
 udev_device_get_property_value
 udev_device_get_driver
 udev_device_get_devnum
@@ -96,9 +104,16 @@ sub load_lib {
         # access to libudev generated lists ====================================
 
         # struct udev_list_entry *udev_list_entry_get_next(struct udev_list_entry *list_entry);
+        $ffi->attach('udev_list_entry_get_next'    => ['opaque'] => 'opaque');
+
         # struct udev_list_entry *udev_list_entry_get_by_name(struct udev_list_entry *list_entry, const char *name);
+        $ffi->attach('udev_list_entry_get_by_name' => ['opaque', 'string'] => 'opaque');
+
         # const char *udev_list_entry_get_name(struct udev_list_entry *list_entry);
+        $ffi->attach('udev_list_entry_get_name'    => ['opaque'] => 'string');
+
         # const char *udev_list_entry_get_value(struct udev_list_entry *list_entry);
+        $ffi->attach('udev_list_entry_get_value'   => ['opaque'] => 'string');
 
 
         # udev_device ==========================================================

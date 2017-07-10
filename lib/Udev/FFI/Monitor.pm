@@ -14,7 +14,7 @@ sub new {
 
     my $self = {
         _monitor => shift,
-        _started => 0
+        _is_started => 0
     };
 
     bless $self, $class;
@@ -43,7 +43,7 @@ sub filter_by_subsystem_devtype {
     my $devtype = shift;
 
     return 0
-        if 1 == $self->{_started};
+        if 1 == $self->{_is_started};
 
     if(0 != udev_monitor_filter_add_match_subsystem_devtype($self->{_monitor}, $subsystem, $devtype)) {
         return 0;
@@ -59,7 +59,7 @@ sub filter_by_tag {
     my $tag = shift;
 
     return 0
-        if 1 == $self->{_started};
+        if 1 == $self->{_is_started};
 
     if(0 != udev_monitor_filter_add_match_tag($self->{_monitor}, $tag)) {
         return 0;
@@ -98,7 +98,7 @@ sub start {
     my $self = shift;
 
     return 1
-        if $self->{_started};
+        if $self->{_is_started};
 
     if(0 != udev_monitor_enable_receiving( $self->{_monitor} )) {
         return 0;
@@ -114,7 +114,7 @@ sub start {
     $self->{_select} = IO::Select->new();
     $self->{_select}->add($fdh);
 
-    $self->{_started} = 1;
+    $self->{_is_started} = 1;
     return 1;
 }
 
@@ -124,7 +124,7 @@ sub poll {
     my $self = shift;
     my $timeout = shift || 0;
 
-    unless($self->{_started}) {
+    unless($self->{_is_started}) {
         die "udev monitor is not running\n";
     }
 
@@ -142,7 +142,7 @@ sub poll {
 sub is_started {
     my $self = shift;
 
-    return $self->{_started};
+    return $self->{_is_started};
 }
 
 
