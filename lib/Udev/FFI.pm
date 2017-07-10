@@ -175,6 +175,20 @@ sub new_monitor {
 
 
 
+sub new_enumerate {
+    my $self = shift;
+
+    my $enumerate = udev_enumerate_new($self->{_context});
+    unless(defined($enumerate)) {
+        $@ = "Can't create enumerate context.";
+        return undef;
+    }
+
+    return Udev::FFI::Enumerate->new($enumerate);
+}
+
+
+
 sub DESTROY {
     my $self = shift;
 

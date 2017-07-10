@@ -24,6 +24,14 @@ sub new {
 
 
 
+sub get_udev {
+    my $self = shift;
+
+    return udev_monitor_get_udev($self->{_monitor});
+}
+
+
+
 sub set_receive_buffer_size {
     my $self = shift;
     my $bytes = shift;

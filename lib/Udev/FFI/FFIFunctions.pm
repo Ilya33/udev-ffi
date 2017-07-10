@@ -60,6 +60,23 @@ udev_monitor_filter_add_match_subsystem_devtype
 udev_monitor_filter_add_match_tag
 udev_monitor_filter_update
 udev_monitor_filter_remove
+udev_enumerate_ref
+udev_enumerate_unref
+udev_enumerate_get_udev
+udev_enumerate_new
+udev_enumerate_add_match_subsystem
+udev_enumerate_add_nomatch_subsystem
+udev_enumerate_add_match_sysattr
+udev_enumerate_add_nomatch_sysattr
+udev_enumerate_add_match_property
+udev_enumerate_add_match_sysname
+udev_enumerate_add_match_tag
+udev_enumerate_add_match_parent
+udev_enumerate_add_match_is_initialized
+udev_enumerate_add_syspath
+udev_enumerate_scan_devices
+udev_enumerate_scan_subsystems
+udev_enumerate_get_list_entry
 );
 
 
@@ -261,6 +278,69 @@ sub load_lib {
 
         # int udev_monitor_filter_remove(struct udev_monitor *udev_monitor);
         $ffi->attach('udev_monitor_filter_remove'                      => ['opaque'] => 'int');
+
+
+        # udev_enumerate =======================================================
+
+        # search sysfs for specific devices and provide a sorted list
+
+        # struct udev_enumerate *udev_enumerate_ref(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_ref'      => ['opaque'] => 'opaque');
+
+        # struct udev_enumerate *udev_enumerate_unref(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_unref'    => ['opaque'] => 'opaque');
+
+        # struct udev *udev_enumerate_get_udev(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_get_udev' => ['opaque'] => 'opaque');
+
+        # struct udev_enumerate *udev_enumerate_new(struct udev *udev);
+        $ffi->attach('udev_enumerate_new'      => ['opaque'] => 'opaque');
+
+        # device properties filter */
+
+        # int udev_enumerate_add_match_subsystem(struct udev_enumerate *udev_enumerate, const char *subsystem);
+        $ffi->attach('udev_enumerate_add_match_subsystem'      => ['opaque', 'string'] => 'int');
+
+        # int udev_enumerate_add_nomatch_subsystem(struct udev_enumerate *udev_enumerate, const char *subsystem);
+        $ffi->attach('udev_enumerate_add_nomatch_subsystem'    => ['opaque', 'string'] => 'int');
+
+        # int udev_enumerate_add_match_sysattr(struct udev_enumerate *udev_enumerate, const char *sysattr, const char *value);
+        $ffi->attach('udev_enumerate_add_match_sysattr'        => ['opaque', 'string', 'string'] => 'int');
+
+        # int udev_enumerate_add_nomatch_sysattr(struct udev_enumerate *udev_enumerate, const char *sysattr, const char *value);
+        $ffi->attach('udev_enumerate_add_nomatch_sysattr'      => ['opaque', 'string', 'string'] => 'int');
+
+        # int udev_enumerate_add_match_property(struct udev_enumerate *udev_enumerate, const char *property, const char *value);
+        $ffi->attach('udev_enumerate_add_match_property'       => ['opaque', 'string', 'string'] => 'int');
+
+        # int udev_enumerate_add_match_sysname(struct udev_enumerate *udev_enumerate, const char *sysname);
+        $ffi->attach('udev_enumerate_add_match_sysname'        => ['opaque', 'string'] => 'int');
+
+        # int udev_enumerate_add_match_tag(struct udev_enumerate *udev_enumerate, const char *tag);
+        $ffi->attach('udev_enumerate_add_match_tag'            => ['opaque', 'string'] => 'int');
+
+        # int udev_enumerate_add_match_parent(struct udev_enumerate *udev_enumerate, struct udev_device *parent);
+        $ffi->attach('udev_enumerate_add_match_parent'         => ['opaque', 'opaque'] => 'int');
+
+        # int udev_enumerate_add_match_is_initialized(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_add_match_is_initialized' => ['opaque'] => 'int');
+
+        # int udev_enumerate_add_syspath(struct udev_enumerate *udev_enumerate, const char *syspath);
+        $ffi->attach('udev_enumerate_add_syspath'              => ['opaque', 'string'] => 'int');
+
+        # run enumeration with active filters */
+
+        # int udev_enumerate_scan_devices(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_scan_devices'    => ['opaque'] => 'int');
+
+        # int udev_enumerate_scan_subsystems(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_scan_subsystems' => ['opaque'] => 'int');
+
+        # return device list */
+
+        # struct udev_list_entry *udev_enumerate_get_list_entry(struct udev_enumerate *udev_enumerate);
+        $ffi->attach('udev_enumerate_get_list_entry' => ['opaque'] => 'opaque');
+
     }
 
     return 1;
