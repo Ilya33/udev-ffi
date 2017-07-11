@@ -10,6 +10,7 @@ use warnings;
 use Udev::FFI::FFIFunctions;
 use Udev::FFI::Device;
 use Udev::FFI::Monitor;
+use Udev::FFI::Enumerate;
 
 use IPC::Cmd qw(can_run run);
 
