@@ -77,6 +77,8 @@ udev_enumerate_add_syspath
 udev_enumerate_scan_devices
 udev_enumerate_scan_subsystems
 udev_enumerate_get_list_entry
+
+get_entries
 );
 
 
@@ -86,6 +88,33 @@ use FFI::CheckLib;
 
 
 my $ffi;
+
+
+
+sub get_entries {
+    my $entry = shift;
+
+    if(wantarray) {
+        my @a = ();
+
+        if(defined($entry)) {
+            push @a, udev_list_entry_get_name($entry)
+                while defined($entry = udev_list_entry_get_next($entry));
+        }
+
+        return @a;
+    }
+
+
+    my %h = ();
+
+    if(defined($entry)) {
+        $h{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry)
+            while defined($entry = udev_list_entry_get_next($entry));
+    }
+
+    return \%h;
+}
 
 
 

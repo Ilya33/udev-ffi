@@ -178,19 +178,7 @@ sub scan_subsystems {
 sub get_list_entries {
     my $self = shift;
 
-    my %list = ();
-    my $entry = udev_enumerate_get_list_entry($self->{_enumerate});
-
-    if(defined($entry)) {
-        do {
-            $list{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        }
-        while( defined($entry = udev_list_entry_get_next($entry)) );
-
-        return %list;
-    }
-
-    return undef;
+    return get_entries( udev_enumerate_get_list_entry($self->{_enumerate}) );
 }
 
 

@@ -210,10 +210,6 @@ __END__
 
 Udev::FFI - Perl bindings for libudev using ffi
 
-=head1 VERSION
-
-version pre-alpha
-
 =head1 SYNOPSIS
 
   use Udev::FFI;

@@ -188,76 +188,28 @@ sub get_parent_with_subsystem_devtype {
 sub get_devlinks_list_entries {
     my $self = shift;
 
-    my %list = ();
-    my $entry = udev_device_get_devlinks_list_entry( $self->{_device} );
-
-    if(defined($entry)) {
-        do {
-            $list{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        }
-        while( defined($entry = udev_list_entry_get_next($entry)) );
-
-        return %list;
-    }
-
-    return undef;
+    return get_entries( udev_device_get_devlinks_list_entry( $self->{_device} ) );
 }
 
 
 sub get_properties_list_entries {
     my $self = shift;
 
-    my %list = ();
-    my $entry = udev_device_get_properties_list_entry( $self->{_device} );
-
-    if(defined($entry)) {
-        do {
-            $list{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        }
-        while( defined($entry = udev_list_entry_get_next($entry)) );
-
-        return %list;
-    }
-
-    return undef;
+    return get_entries( udev_device_get_properties_list_entry( $self->{_device} ) );
 }
 
 
 sub get_tags_list_entries {
     my $self = shift;
 
-    my %list = ();
-    my $entry = udev_device_get_tags_list_entry( $self->{_device} );
-
-    if(defined($entry)) {
-        do {
-            $list{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        }
-        while( defined($entry = udev_list_entry_get_next($entry)) );
-
-        return %list;
-    }
-
-    return undef;
+    return get_entries( udev_device_get_tags_list_entry( $self->{_device} ) );
 }
 
 
 sub get_sysattr_list_entries {
     my $self = shift;
 
-    my %list = ();
-    my $entry = udev_device_get_sysattr_list_entry( $self->{_device} );
-
-    if(defined($entry)) {
-        do {
-            $list{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        }
-        while( defined($entry = udev_list_entry_get_next($entry)) );
-
-        return %list;
-    }
-
-    return undef;
+    return get_entries( udev_device_get_sysattr_list_entry( $self->{_device} ) );
 }
 
 
