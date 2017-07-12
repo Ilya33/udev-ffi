@@ -2,10 +2,6 @@
 
 Udev::FFI - Perl bindings for libudev using ffi
 
-# VERSION
-
-version pre-alpha
-
 # SYNOPSIS
 
     use Udev::FFI;
