@@ -1,12 +1,12 @@
 {
-   "abstract" : "Perl bindings for libudev using ffi",
+   "abstract" : "Perl bindings for libudev using ffi.",
    "author" : [
       "Ilya Pavlov, <iluxz@mail.ru>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.143240",
    "license" : [
-      "unknown"
+      "lgpl_2_1"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -64,7 +64,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.096000",
+   "version" : "0.096001",
    "x_contributors" : [
       "Ilya <ilya@orz1e1.mydomain>"
    ]
