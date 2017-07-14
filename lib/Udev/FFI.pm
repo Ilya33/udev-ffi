@@ -52,7 +52,7 @@ sub udev_version {
         return undef;
     }
     if($stdout_buf->[0] !~ /^(\d+)\s*$/) {
-        $@ = "Can't get udev version";
+        $@ = "Can't get udev version from udevadm utility";
         return undef;
     }
 
@@ -73,7 +73,7 @@ sub new {
 
     $self->{_context} = udev_new();
     if(!defined($self->{_context})) {
-        $@ = "Can't create udev context.";
+        $@ = "Can't create udev context";
         return undef;
     }
 
@@ -167,7 +167,7 @@ sub new_monitor {
 
     my $monitor = udev_monitor_new_from_netlink($self->{_context}, $source);
     unless(defined($monitor)) {
-        $@ = "Can't create udev monitor from netlink.";
+        $@ = "Can't create udev monitor from netlink";
         return undef;
     }
 
@@ -181,7 +181,7 @@ sub new_enumerate {
 
     my $enumerate = udev_enumerate_new($self->{_context});
     unless(defined($enumerate)) {
-        $@ = "Can't create enumerate context.";
+        $@ = "Can't create enumerate context";
         return undef;
     }
 
@@ -208,37 +208,39 @@ __END__
 
 =head1 NAME
 
-Udev::FFI - Perl bindings for libudev using ffi
+Udev::FFI - Perl bindings for libudev using ffi.
 
 =head1 SYNOPSIS
 
-  use Udev::FFI;
-  blah blah blah
+    use Udev::FFI;
+
+    #get udev version
+    my $udev_version = udev_version();
+    if(defined $udev_version) {
+        print $udev_version. "\n";
+    }
+    else {
+        warn "Can't get udev version: $@";
+    }
+
+
+    #create udev context
+    my $udev = Udev::FFI->new() or
+        die "Can't create udev context: $@";
 
 =head1 DESCRIPTION
 
-See examples.
+Udev::FFI exposes OO interface to libudev.
 
-Stub documentation for Udev::FFI.
+=head1 EXAMPLES
 
-Blah blah blah.
-
-=head2 EXPORT
-
-None by default.
-
-
+See examples folder.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
+libudev
 
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+L<FFI::Platypus>
 
 =head1 AUTHOR
 
@@ -247,6 +249,12 @@ Ilya Pavlov, E<lt>iluxz@mail.ruE<gt>
 =head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2017 by Ilya Pavlov
+
+This library is free software; you can redistribute it and/or modify it under the terms of the GNU Library General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public License for more details.
+
+You should have received a copy of the GNU Library General Public License along with this library; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 
 =cut

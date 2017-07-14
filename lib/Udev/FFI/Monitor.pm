@@ -133,7 +133,7 @@ sub poll {
     my $timeout = shift || 0;
 
     unless($self->{_is_started}) {
-        die "udev monitor is not running\n";
+        die "udev monitor is not running";
     }
 
     if($self->{_select}->can_read($timeout)) {
