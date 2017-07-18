@@ -3,8 +3,6 @@
 use strict;
 use warnings;
 
-use Pod::Usage qw(pod2usage);
-
 use Data::Dumper;
 
 use FindBin;
@@ -13,7 +11,7 @@ use Udev::FFI;
 
 
 
-pod2usage(1)
+die "Usage: device_scalar_n_list.pl NETWORK_INTERFACE_NAME"
     unless defined $ARGV[0];
 
 
@@ -30,21 +28,3 @@ if($device) {
     my @a = $device->get_properties_list_entries();
     print Dumper(@a), "\n";
 }
-
-
-
-__END__
-
-
-
-=head1 NAME
-
-device_scalar_n_list.pl
-
-=head1 SYNOPSIS
-
-device_scalar_n_list.pl NETWORK_INTERFACE_NAME
-
-=back
-
-=cut
