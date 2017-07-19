@@ -6,7 +6,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use Udev::FFI;
-use Udev::FFI::Devnum qw(:all);
+use Udev::FFI::Devnum qw(:all); #import major, minor and mkdev
 
 
 

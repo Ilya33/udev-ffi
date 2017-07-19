@@ -215,7 +215,7 @@ Udev::FFI - Perl bindings for libudev using ffi.
     use Udev::FFI;
 
     #get udev version
-    my $udev_version = udev_version();
+    my $udev_version = Udev::FFI::udev_version();
     if(defined $udev_version) {
         print $udev_version. "\n";
     }

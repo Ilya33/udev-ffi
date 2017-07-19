@@ -182,6 +182,7 @@ sub load_lib {
         # struct udev_device *udev_device_new_from_subsystem_sysname(struct udev *udev, const char *subsystem, const char *sysname);
         $ffi->attach('udev_device_new_from_subsystem_sysname' => ['opaque', 'string', 'string'] => 'opaque');
 
+        # libudev >= 189
         # struct udev_device *udev_device_new_from_device_id(struct udev *udev, const char *id);
         $ffi->attach('udev_device_new_from_device_id' => ['opaque', 'string'] => 'opaque');
 
