@@ -319,6 +319,18 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
 Udev::FFI exposes OO interface to libudev.
 
+=head1 CONSTRUCTOR
+ 
+=over 4
+ 
+=item new ()
+ 
+This is the constructor for a new Udev::FFI object.
+
+If the constructor fails undef will be returned and an error message will be in $@.
+ 
+=back
+
 =head1 EXAMPLES
 
 See examples folder.
@@ -334,6 +346,10 @@ L<FFI::CheckLib> (Check that a library is available for FFI)
 =head1 AUTHOR
 
 Ilya Pavlov, E<lt>ilux@cpan.orgE<gt>
+
+Contributors:
+
+Mohammad S Anwar
 
 =head1 COPYRIGHT AND LICENSE
 
