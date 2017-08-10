@@ -16,7 +16,7 @@ my $monitor = $udev->new_monitor() or
     die "Can't create udev monitor: $@.\n";
 
 
-unless($monitor->filter_by_subsystem_devtype('block', 'partition')) {
+unless($monitor->filter_by_subsystem_devtype('block')) {
     warn "Ouch!";
 }
 
@@ -24,7 +24,7 @@ if($monitor->start()) {
     #now insert you block device
 
     for(;;) {
-        if(defined(my $device = $monitor->poll())) {
+        if(defined(my $device = $monitor->poll(0.5))) { #non-blocking read like can_read in IO::Select
             my $action = $device->get_action();
 
             print 'ACTION: '.$action, "\n";
