@@ -1,16 +1,17 @@
 #!/usr/bin/perl
 # ATTENTION place it script to startup/autostart applications in your desktop
-# environment.
+# environment or run by current x-session user.
 
 use strict;
 use warnings;
 
-use FindBin;
-use lib "$FindBin::Bin/../lib";
+use FindBin; # only for this example - load local Udev::FFI module
+use lib "$FindBin::Bin/../lib"; # only for this example - load local Udev::FFI module
 use Udev::FFI;
 
 
 use constant {
+    # add your mouse VID and PID in array
     MOUSES => [{
         VID => '046d',
         PID => 'c06d'
