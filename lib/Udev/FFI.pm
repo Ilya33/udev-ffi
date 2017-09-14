@@ -328,7 +328,10 @@ Udev::FFI exposes OO interface to libudev.
 This is the constructor for a new Udev::FFI object.
 
 If the constructor fails undef will be returned and an error message will be in $@.
- 
+
+    my $udev = Udev::FFI->new() or
+        die "Can't create udev context: $@";
+
 =back
 
 =head1 EXAMPLES
