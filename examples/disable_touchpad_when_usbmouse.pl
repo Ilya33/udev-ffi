@@ -17,8 +17,8 @@ use constant {
         PID => 'c06d'
     }],
 
-    ON_TOUCHPAD_COMMAND => '/usr/bin/synclient touchpadoff=1',
-    OFF_TOUCHPAD_COMMAND => '/usr/bin/synclient touchpadoff=0'
+    ON_TOUCHPAD_COMMAND => '/usr/bin/synclient touchpadoff=0',
+    OFF_TOUCHPAD_COMMAND => '/usr/bin/synclient touchpadoff=1'
 };
 
 
@@ -28,6 +28,18 @@ my %inserted_mouses;
 
 my $udev = Udev::FFI->new() or
     die "Can't create udev context: $@.\n";
+
+
+# monitor for new devices
+my $monitor = $udev->new_monitor() or
+    die "Can't create udev monitor: $@.\n";
+
+$monitor->filter_by_subsystem_devtype('usb', 'usb_device');
+
+# start monitor before enumerate to catch devices inserted between enumerate and
+# $monitor->poll()
+$monitor->start() or
+    die "Can't start udev monitor :(\n";
 
 
 # check already inserted devices
@@ -56,41 +68,33 @@ for(@inserted_devices) {
 
 # known mouses > 0
 if(%inserted_mouses) {
-    system(ON_TOUCHPAD_COMMAND);
+    system(OFF_TOUCHPAD_COMMAND);
 }
 
 
-# check new devices
-my $monitor = $udev->new_monitor() or
-    die "Can't create udev monitor: $@.\n";
+for(;;) {
+    my $device = $monitor->poll(); # blocking read
+    my $action = $device->get_action();
+    my $device_vid = $device->get_sysattr_value("idVendor");
+    my $device_pid = $device->get_sysattr_value("idProduct");
 
-$monitor->filter_by_subsystem_devtype('usb', 'usb_device');
+    if($action eq 'add' && defined($device_vid) && defined($device_pid)) {
+        for(@{+MOUSES}) {
+            if($device_vid eq $_->{VID} && $device_pid eq $_->{PID}) {
+                system(OFF_TOUCHPAD_COMMAND)
+                    unless %inserted_mouses;
 
-
-if($monitor->start()) {
-    for(;;) {
-        my $device = $monitor->poll(); # blocking read
-        my $action = $device->get_action();
-        my $device_vid = $device->get_sysattr_value("idVendor");
-        my $device_pid = $device->get_sysattr_value("idProduct");
-
-        if($action eq 'add' && defined($device_vid) && defined($device_pid)) {
-            for(@{+MOUSES}) {
-                if($device_vid eq $_->{VID} && $device_pid eq $_->{PID}) {
-                    system(ON_TOUCHPAD_COMMAND);
-
-                    $inserted_mouses{ $device->get_devpath() } = 1;
-                    last;
-                }
+                $inserted_mouses{ $device->get_devpath() } = 1;
+                last;
             }
         }
-        elsif($action eq 'remove') {
-            delete $inserted_mouses{ $device->get_devpath() };
+    }
+    elsif($action eq 'remove') {
+        delete $inserted_mouses{ $device->get_devpath() };
 
-            # known mouses == 0
-            unless(%inserted_mouses) {
-                system(OFF_TOUCHPAD_COMMAND);
-            }
+        # known mouses == 0
+        unless(%inserted_mouses) {
+            system(ON_TOUCHPAD_COMMAND);
         }
     }
 }
