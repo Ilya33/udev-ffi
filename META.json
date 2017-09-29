@@ -28,7 +28,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build" : "0.4005"
+            "Module::Build::Tiny" : "0.035"
          }
       },
       "develop" : {
@@ -69,7 +69,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.098001",
+   "version" : "0.098002",
    "x_contributors" : [
       "Ilya <ilya@orz1e1.mydomain>",
       "Ilya Pavlov <iluxz@mail.ru>",
