@@ -24,11 +24,12 @@ my %args = (
     requires => {
         'FFI::CheckLib' => '0',
         'FFI::Platypus' => '0',
+        'IPC::Cmd' => '0',
+        'PkgConfig' => '0.17026',
         'perl' => '5.008001',
     },
 
     recommends => {
-        'PkgConfig' => '0.16026',
     },
 
     suggests => {

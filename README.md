@@ -111,6 +111,17 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
 Udev::FFI exposes OO interface to libudev.
 
+# CONSTRUCTOR
+
+- new ()
+
+    This is the constructor for a new Udev::FFI object.
+
+    If the constructor fails undef will be returned and an error message will be in $@.
+
+        my $udev = Udev::FFI->new() or
+            die "Can't create udev context: $@";
+
 # EXAMPLES
 
 See examples folder.
@@ -126,6 +137,10 @@ libudev
 # AUTHOR
 
 Ilya Pavlov, <ilux@cpan.org>
+
+Contributors:
+
+Mohammad S Anwar
 
 # COPYRIGHT AND LICENSE
 

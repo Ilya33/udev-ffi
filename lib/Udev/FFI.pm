@@ -15,7 +15,7 @@ use Udev::FFI::Enumerate;
 use IPC::Cmd qw(can_run run);
 
 
-$Udev::FFI::VERSION = '0.098000';
+$Udev::FFI::VERSION = '0.098001';
 
 
 use constant {

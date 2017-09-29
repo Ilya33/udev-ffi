@@ -4,7 +4,7 @@
       "Ilya Pavlov, <ilux@cpan.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.143240",
+   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.150010",
    "license" : [
       "lgpl_2_1"
    ],
@@ -28,7 +28,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.035"
+            "Module::Build" : "0.4005"
          }
       },
       "develop" : {
@@ -41,12 +41,11 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "PkgConfig" : "0.16026"
-         },
          "requires" : {
             "FFI::CheckLib" : "0",
             "FFI::Platypus" : "0",
+            "IPC::Cmd" : "0",
+            "PkgConfig" : "0.17026",
             "perl" : "5.008001"
          }
       },
@@ -68,9 +67,11 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.098000",
+   "version" : "0.098001",
    "x_contributors" : [
       "Ilya <ilya@orz1e1.mydomain>",
-      "Ilya Pavlov <iluxz@mail.ru>"
-   ]
+      "Ilya Pavlov <iluxz@mail.ru>",
+      "Mohammad S Anwar <mohammad.anwar@yahoo.com>"
+   ],
+   "x_serialization_backend" : "JSON::PP version 2.27400"
 }
