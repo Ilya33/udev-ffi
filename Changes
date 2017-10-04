@@ -2,7 +2,8 @@ Revision history for Perl extension Udev-FFI
 
 {{$NEXT}}
 
-0.098002 2017-09-29T13:31:08Z
+0.098003 2017-10-04T09:59:32Z
+    - test is libudev exists
     - try Module::Build::Tiny
 
 0.098000 2017-08-10T13:02:22Z

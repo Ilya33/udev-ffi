@@ -124,7 +124,7 @@ Udev::FFI exposes OO interface to libudev.
 
 # EXAMPLES
 
-See examples folder.
+Examples are provided with the Udev::FFI distribution in the "examples" directory.
 
 # SEE ALSO
 

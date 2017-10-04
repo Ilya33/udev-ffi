@@ -8,11 +8,5 @@ use strict;
 
 use Module::Build::Tiny 0.035;
 
-use FFI::CheckLib;
-
-if(!defined find_lib( lib => 'udev' )) {
-    die "It seems that your system doesn't provide libudev.";
-}
-
-
 Build_PL();
+
