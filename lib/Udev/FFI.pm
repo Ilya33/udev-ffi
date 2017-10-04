@@ -336,7 +336,7 @@ If the constructor fails undef will be returned and an error message will be in 
 
 =head1 EXAMPLES
 
-See examples folder.
+Examples are provided with the Udev::FFI distribution in the "examples" directory.
 
 =head1 SEE ALSO
 
