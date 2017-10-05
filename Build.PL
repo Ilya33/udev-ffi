@@ -8,5 +8,14 @@ use strict;
 
 use Module::Build::Tiny 0.035;
 
+use FFI::CheckLib;
+
+die qq{it seems that your system doesn't provide libudev.
+Please install libudeb >= 189.
+Installation failed\n}
+    unless defined(find_lib( lib => 'udev' ));
+
 Build_PL();
+
+
 
