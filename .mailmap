@@ -1,0 +1,5 @@
+# fix `git log --format="%aN <%aE>" | sort | uniq` command
+
+Ilya Pavlov <ilux@cpan.org> Ilya <iluxz@mail.ru>
+Ilya Pavlov <ilux@cpan.org> Ilya <ilya@orz1e1.mydomain>
+Ilya Pavlov <ilux@cpan.org> <iluxz@mail.ru>
