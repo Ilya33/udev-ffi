@@ -2,6 +2,9 @@ Revision history for Perl extension Udev-FFI
 
 {{$NEXT}}
 
+0.098005 2017-10-06T11:57:04Z
+    - update configure in cpanfile
+
 0.098004 2017-10-05T22:38:49Z
     - fix test
 
