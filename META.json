@@ -28,6 +28,7 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
+            "FFI::CheckLib" : "0",
             "Module::Build::Tiny" : "0.035"
          }
       },
