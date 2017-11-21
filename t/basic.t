@@ -5,7 +5,7 @@ use Test::More tests => 2;
 
 use Udev::FFI;
 
-my $minimum_udev_version = 189;
+my $minimum_udev_version = 176;
 
 
 my $udev_version = Udev::FFI::udev_version();

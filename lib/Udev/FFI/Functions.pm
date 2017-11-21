@@ -8,7 +8,6 @@ our (@ISA, @EXPORT_OK, %EXPORT_TAGS);
 require Exporter;
 @ISA = qw(Exporter);
 
-
 use IPC::Cmd qw(can_run run);
 
 use FFI::Platypus;
@@ -440,7 +439,8 @@ sub udev_version {
 
 
 my $_function_not_attach = sub {
-    die "Function not attach... \nudevadm version: ".(defined(udev_version()) ?udev_version() :'unknown')."\n";
+    die "Function '".$_[0]."' not attached from udev library\n".
+        "`udevadm` version: ".(defined(udev_version()) ?udev_version() :'unknown')."\n";
 };
 
 
@@ -496,7 +496,16 @@ sub init {
     }
 
     for my $funct (keys %{+FUNCTIONS} ) {
-        $ffi->attach($funct => FUNCTIONS->{$funct}{ffi_data}[0] => FUNCTIONS->{$funct}{ffi_data}[1]);
+        eval {
+            $ffi->attach($funct => FUNCTIONS->{$funct}{ffi_data}[0] => FUNCTIONS->{$funct}{ffi_data}[1]);
+        };
+        if($@) {
+            die "Can't attach '$funct' function from udev library\n"
+                if !exists(FUNCTIONS->{$funct}{since}) || $udev_version >= FUNCTIONS->{$funct}{since};
+
+            no strict 'refs';
+            *$funct = sub { $_function_not_attach->($funct) };
+        }
     }
 
     return 1;
