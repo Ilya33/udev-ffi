@@ -42,9 +42,6 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "PkgConfig" : "0.17026"
-         },
          "requires" : {
             "FFI::CheckLib" : "0",
             "FFI::Platypus" : "0",
@@ -58,28 +55,7 @@
          }
       }
    },
-   "provides" : {
-      "Udev::FFI" : {
-         "file" : "lib/Udev/FFI.pm",
-         "version" : "0.098005"
-      },
-      "Udev::FFI::Device" : {
-         "file" : "lib/Udev/FFI/Device.pm"
-      },
-      "Udev::FFI::Devnum" : {
-         "file" : "lib/Udev/FFI/Devnum.pm"
-      },
-      "Udev::FFI::Enumerate" : {
-         "file" : "lib/Udev/FFI/Enumerate.pm"
-      },
-      "Udev::FFI::FFIFunctions" : {
-         "file" : "lib/Udev/FFI/FFIFunctions.pm"
-      },
-      "Udev::FFI::Monitor" : {
-         "file" : "lib/Udev/FFI/Monitor.pm"
-      }
-   },
-   "release_status" : "stable",
+   "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/Ilya33/udev-ffi/issues"
@@ -91,7 +67,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.098005",
+   "version" : "0.099000",
    "x_contributors" : [
       "Mohammad S Anwar <mohammad.anwar@yahoo.com>"
    ],
