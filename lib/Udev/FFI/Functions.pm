@@ -208,7 +208,8 @@ use constant {
 
         #int udev_device_set_sysattr_value(struct udev_device *udev_device, const char *sysattr, char *value);
         'udev_device_set_sysattr_value' => {
-            ffi_data => [ ['opaque', 'string', 'string'], 'int' ]
+            ffi_data => [ ['opaque', 'string', 'string'], 'int' ],
+            since    => 199
         },
 
         #int udev_device_has_tag(struct udev_device *udev_device, const char *tag);
@@ -386,7 +387,8 @@ use constant {
     },
 
     UDEVADM_LOCATIONS => [
-        '/bin/udevadm'
+        '/bin/udevadm',
+        '/sbin/udevadm'
     ]
 };
 
@@ -485,7 +487,7 @@ sub init {
         return 0;
     }
 
-    my $udev_version = udev_version();
+    my $udev_version = udev_version() || 0;
 
     my $ffi = FFI::Platypus->new;
     $ffi->lib($libudev);
