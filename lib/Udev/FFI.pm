@@ -291,6 +291,26 @@ If the constructor fails undef will be returned and an error message will be in 
 
 =back
 
+=head1 METHODS
+
+=over 4
+
+=item new_monitor ( [SOURCE] )
+
+=item new_enumerate ()
+
+=item new_device_from_syspath ( SYSPATH )
+
+=item new_device_from_devnum ( TYPE, DEVNUM )
+
+=item new_device_from_subsystem_sysname ( SUBSYSTEM, SYSNAME )
+
+=item new_device_from_device_id ( ID )
+
+=item new_device_from_environment ()
+
+=back
+
 =head1 EXAMPLES
 
 Examples are provided with the Udev::FFI distribution in the "examples" directory.
