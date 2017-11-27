@@ -323,6 +323,12 @@ L<FFI::Platypus> (Write Perl bindings to non-Perl libraries without C or XS)
 
 L<FFI::CheckLib> (Check that a library is available for FFI)
 
+=head1 BUGS AND LIMITATIONS
+
+Udev::FFI supports libudev 175 or newer. Older versions may work too, but it was not tested.
+
+Please report any bugs through the web interface at L<https://github.com/Ilya33/udev-ffi/issues> or via email to the author. Patches are always welcome.
+
 =head1 AUTHOR
 
 Ilya Pavlov, E<lt>ilux@cpan.orgE<gt>
