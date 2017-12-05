@@ -8,7 +8,7 @@ our (@ISA, @EXPORT_OK, %EXPORT_TAGS);
 require Exporter;
 @ISA = qw(Exporter);
 
-use IPC::Cmd qw(can_run run);
+use IPC::Cmd qw(can_run);
 
 use FFI::Platypus;
 use FFI::CheckLib;
@@ -408,7 +408,7 @@ my $is_libudev_load = 1;
 sub udev_version {
     my $full_path = can_run('udevadm');
 
-    if(!$full_path) {
+    if(!defined $full_path) {
         for(@{ +UDEVADM_LOCATIONS }) {
             if(-f) {
                 $full_path = $_;
@@ -417,25 +417,27 @@ sub udev_version {
         }
     }
 
-    if(!$full_path) {
+    if(!defined $full_path) {
         $@ = "Can't find udevadm utility";
         return undef;
     }
 
 
-    my ( $success, $error_message, undef, $stdout_buf, $stderr_buf ) =
-        run( command => [$full_path, '--version'], timeout => 60, verbose => 0 );
+    {
+        local $SIG{__WARN__} = sub {}; # silence shell output if error
 
-    if(!$success) {
-        $@ = $error_message;
-        return undef;
-    }
-    if($stdout_buf->[0] !~ /^(\d+)\s*$/) {
-        $@ = "Can't get udev version from udevadm utility";
-        return undef;
+        if(open my $ph, '-|', $full_path, '--version') {
+            if(<$ph> !~ /^(\d+)\s*$/) {
+                $@ = "Can't get udev version from udevadm utility";
+                return undef;
+            }
+
+            return $1;
+        }
     }
 
-    return $1;
+    $@ = $!;
+    return undef;
 }
 
 

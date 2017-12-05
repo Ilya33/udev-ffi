@@ -309,6 +309,17 @@ If the constructor fails undef will be returned and an error message will be in 
 
 =item new_device_from_environment ()
 
+=
+
+=item Udev::FFI::udev_version ()
+
+Return udev library version. Because udev library not provide a function to get the version number, this function run `udevadm` utility.
+
+If the function fails undef will be returned and an error message will be in $@.
+
+    my $udev_version = Udev::FFI::udev_version() or
+        die "Can't get udev library version: $@";
+
 =back
 
 =head1 EXAMPLES
