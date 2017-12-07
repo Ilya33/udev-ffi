@@ -418,7 +418,7 @@ sub udev_version {
     }
 
     if(!defined $full_path) {
-        $@ = "Can't find udevadm utility";
+        $@ = "Can't find `udevadm` utility";
         return undef;
     }
 
@@ -428,7 +428,7 @@ sub udev_version {
 
         if(open my $ph, '-|', $full_path, '--version') {
             if(<$ph> !~ /^(\d+)\s*$/) {
-                $@ = "Can't get udev version from udevadm utility";
+                $@ = "Can't get udev version from `udevadm` utility";
                 return undef;
             }
 
@@ -436,7 +436,7 @@ sub udev_version {
         }
     }
 
-    $@ = $!;
+    $@ = "Can't run `udevadm` utility";
     return undef;
 }
 
