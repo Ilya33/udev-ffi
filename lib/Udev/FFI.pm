@@ -26,8 +26,7 @@ sub new {
     my $self = {};
 
     if(0 == Udev::FFI::Functions->init()) {
-        $@ = "Can't find udev library";
-        return undef;
+        return undef; # error already in $@
     }
 
     $self->{_context} = udev_new();
@@ -315,7 +314,7 @@ E<nbsp>
 =item Udev::FFI::udev_version ()
 
 Return the version of the udev library. Because the udev library does not
-provide a function to get the version number, this function run the `udevadm`
+provide a function to get the version number, this function runs the `udevadm`
 utility. Return undef with the error in $@ on failure. Also you can check
 $! value: ENOENT (`udevadm` not found) or EACCES (permission denied).
 

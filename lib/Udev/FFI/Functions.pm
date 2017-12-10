@@ -86,7 +86,6 @@ use constant {
             ffi_data => [ ['opaque', 'string', 'string'], 'opaque' ]
         },
 
-        # libudev >= 189
         # struct udev_device *udev_device_new_from_device_id(struct udev *udev, const char *id);
         'udev_device_new_from_device_id' => {
             ffi_data => [ ['opaque', 'string'], 'opaque' ],
@@ -401,7 +400,6 @@ use constant {
 
 
 my $init = 0;
-my $is_libudev_load = 1;
 
 
 
@@ -477,15 +475,14 @@ sub get_entries {
 
 
 sub init {
-    return $is_libudev_load if $init;
-    ++$init;
+    return 1 if $init;
 
 
-    my $libudev = find_lib(
+    my ($libudev) = find_lib(
         lib => 'udev'
     );
     if(!$libudev) {
-        $is_libudev_load = 0;
+        $@ = "Can't find udev library";
         return 0;
     }
 
@@ -494,8 +491,8 @@ sub init {
     my $ffi = FFI::Platypus->new;
     $ffi->lib($libudev);
 
-    if(8 != $ffi->sizeof('dev_t')) {
-        $is_libudev_load = 0;
+    if(8 != $ffi->sizeof('dev_t')) { #TODO not attach functions with dev_t
+        $@ = "sizeof(dev_t) != 8 on your OS";
         return 0;
     }
 
@@ -504,15 +501,17 @@ sub init {
             $ffi->attach($funct => FUNCTIONS->{$funct}{ffi_data}[0] => FUNCTIONS->{$funct}{ffi_data}[1]);
         };
         if($@) {
-            die "Can't attach '$funct' function from udev library\n"
-                if !exists(FUNCTIONS->{$funct}{since}) || $udev_version >= FUNCTIONS->{$funct}{since};
+            if(!exists(FUNCTIONS->{$funct}{since}) || $udev_version >= FUNCTIONS->{$funct}{since}) {
+                $@ = "Can't attach '$funct' function from udev library\n";
+                return 0;
+            }
 
             no strict 'refs';
             *$funct = sub { $_function_not_attach->($funct) };
         }
     }
 
-    return 1;
+    return ++$init;
 }
 
 
