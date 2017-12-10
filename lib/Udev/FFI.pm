@@ -170,19 +170,14 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
     use Udev::FFI;
 
-    #get udev version
-    my $udev_version = Udev::FFI::udev_version();
-    if(defined $udev_version) {
-        print $udev_version. "\n";
-    }
-    else {
-        warn "Can't get udev version: $@";
-    }
+    #get udev library version
+    my $udev_version = Udev::FFI::udev_version()
+        or die "Can't get udev library version: $@";
 
 
-    #create udev context
+    #create Udev::FFI object
     my $udev = Udev::FFI->new() or
-        die "Can't create udev context: $@";
+        die "Can't create Udev::FFI object: $@";
 
 
     #create udev monitor
