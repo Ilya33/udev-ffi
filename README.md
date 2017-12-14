@@ -6,29 +6,29 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
     use Udev::FFI;
 
-    #get udev library version
+    # get udev library version
     my $udev_version = Udev::FFI::udev_version()
         or die "Can't get udev library version: $@";
 
 
-    #create Udev::FFI object
+    # create Udev::FFI object
     my $udev = Udev::FFI->new() or
         die "Can't create Udev::FFI object: $@";
 
 
-    #create udev monitor
+    # create udev monitor
     my $monitor = $udev->new_monitor() or
         die "Can't create udev monitor: $@.\n";
 
-    #add filter to monitor
+    # add filter to monitor
     unless($monitor->filter_by_subsystem_devtype('block')) {
         warn "Ouch!";
     }
 
-    #start monitor
+    # start monitor
     if($monitor->start()) {
         for(;;) {
-            #poll devices, now insert or remove your block device
+            # poll devices, now insert or remove your block device
             my $device = $monitor->poll(); #blocking read
             my $action = $device->get_action();
 
@@ -36,11 +36,11 @@ Udev::FFI - Perl bindings for libudev using ffi.
             print 'SYSNAME: '.$device->get_sysname(), "\n";
             print 'DEVNODE: '.$device->get_devnode(), "\n";
 
-            last; #for example
+            last; # for example
         }
 
         for(;;) {
-            #poll devices, now insert or remove your block device
+            # poll devices, now insert or remove your block device
             if(defined(my $device = $monitor->poll(0))) { #non-blocking read like can_read in IO::Select
                 my $action = $device->get_action();
 
@@ -51,19 +51,19 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
             sleep 1;
 
-            last; #for example
+            last; # for example
         }
     }
 
 
-    #enumerate devices
+    # enumerate devices
     my $enumerate = $udev->new_enumerate() or
         die "Can't create enumerate context\n";
 
     $enumerate->add_match_subsystem('block');
     $enumerate->scan_devices();
 
-    use Data::Dumper; #for dump values in $href and @a
+    use Data::Dumper; # for dump values in $href and @a
 
     # scalar context
     my $href = $enumerate->get_list_entries();
@@ -73,8 +73,8 @@ Udev::FFI - Perl bindings for libudev using ffi.
     my @a = $enumerate->get_list_entries();
     print Dumper(@a), "\n";
 
-    if(@a) { #get major and minor
-        use Udev::FFI::Devnum qw(:all); #import major, minor and mkdev
+    if(@a) { # get major and minor
+        use Udev::FFI::Devnum qw(:all); # import major, minor and mkdev
 
         my $device = $udev->new_device_from_syspath($a[0]);
         if(defined $device) {
@@ -116,7 +116,7 @@ Udev::FFI exposes OO interface to libudev.
     $@.
 
         my $udev = Udev::FFI->new() or
-            die "Can't create udev context: $@";
+            die "Can't create Udev::FFI object: $@";
 
 # METHODS
 
@@ -134,8 +134,10 @@ Udev::FFI exposes OO interface to libudev.
 
     Return the version of the udev library. Because the udev library does not
     provide a function to get the version number, this function runs the \`udevadm\`
-    utility. Return undef with the error in $@ on failure. Also you can check
-    $! value: ENOENT (\`udevadm\` not found) or EACCES (permission denied).
+    utility.
+
+    Return undef with the error in $@ on failure. Also you can check $! value:
+    ENOENT (\`udevadm\` not found) or EACCES (permission denied).
 
         # simple
         my $udev_version = Udev::FFI::udev_version()
@@ -170,12 +172,12 @@ libudev
 
 # BUGS AND LIMITATIONS
 
-Udev::FFI supports libudev 175 or newer. Older versions may work too, but it
-was not tested.
+Udev::FFI supports libudev 175 or newer. Older versions may work too, but it was
+not tested.
 
 Please report any bugs through the web interface at
-[https://github.com/Ilya33/udev-ffi/issues](https://github.com/Ilya33/udev-ffi/issues) or via email to the author.
-Patches are always welcome.
+[https://github.com/Ilya33/udev-ffi/issues](https://github.com/Ilya33/udev-ffi/issues) or via email to the author. Patches
+are always welcome.
 
 # AUTHOR
 
