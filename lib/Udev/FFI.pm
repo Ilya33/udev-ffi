@@ -46,11 +46,8 @@ sub new_device_from_syspath {
     my $syspath = shift;
 
     my $device = udev_device_new_from_syspath($self->{_context}, $syspath);
-    if(defined($device)) {
-        return Udev::FFI::Device->new( $device );
-    }
 
-    return undef;
+    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
 }
 
 
@@ -61,11 +58,8 @@ sub new_device_from_devnum {
     my $devnum = shift;
 
     my $device = udev_device_new_from_devnum($self->{_context}, ord($type), $devnum);
-    if(defined($device)) {
-        return Udev::FFI::Device->new( $device );
-    }
 
-    return undef;
+    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
 }
 
 
@@ -76,11 +70,8 @@ sub new_device_from_subsystem_sysname {
     my $sysname = shift;
 
     my $device = udev_device_new_from_subsystem_sysname($self->{_context}, $subsystem, $sysname);
-    if(defined($device)) {
-        return Udev::FFI::Device->new( $device );
-    }
 
-    return undef;
+    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
 }
 
 
@@ -90,11 +81,8 @@ sub new_device_from_device_id {
     my $id = shift;
 
     my $device = udev_device_new_from_device_id($self->{_context}, $id);
-    if(defined($device)) {
-        return Udev::FFI::Device->new( $device );
-    }
 
-    return undef;
+    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
 }
 
 
@@ -103,11 +91,8 @@ sub new_device_from_environment {
     my $self = shift;
 
     my $device = udev_device_new_from_environment($self->{_context});
-    if(defined($device)) {
-        return Udev::FFI::Device->new( $device );
-    }
 
-    return undef;
+    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
 }
 
 
@@ -294,17 +279,85 @@ $@.
 
 =item new_enumerate ()
 
+E<nbsp>
+
 =item new_device_from_syspath ( SYSPATH )
+
+Create new udev device, and fill in information from the sys device and the udev
+database entry. The syspath is the absolute path to the device, including the
+sys mount point.
+
+Return new L<Udev::FFI::Device> object or undef, if device does not exist.
+
+    my $device0 = $udev->new_device_from_syspath('/sys/class/block/sda1');
+    my $device1 = $udev->new_device_from_syspath('/sys/class/net/eth0');
+    
+    # ... some code
+    my @devices = $enumerate->get_list_entries();
+    for(@devices) {
+        my $device = $udev->new_device_from_syspath($_);
+    # ... some code
 
 =item new_device_from_devnum ( TYPE, DEVNUM )
 
+Create new udev device, and fill in information from the sys device and the udev
+database entry. The device is looked-up by its type and major/minor number.
+
+Return new L<Udev::FFI::Device> object or undef, if device does not exist.
+
+    use Udev::FFI::Devnum qw(mkdev);
+    my $device = $udev->new_device_from_devnum('b', mkdev(8, 1));
+
 =item new_device_from_subsystem_sysname ( SUBSYSTEM, SYSNAME )
+
+Create new udev device, and fill in information from the sys device and the udev
+database entry. The device is looked up by the subsystem and name string of the
+device.
+
+Return new L<Udev::FFI::Device> object or undef, if device does not exist.
+
+    my $device0 = $udev->new_device_from_subsystem_sysname('block', 'sda1');
+    my $device1 = $udev->new_device_from_subsystem_sysname('net', 'lo');
+    my $device2 = $udev->new_device_from_subsystem_sysname('mem', 'urandom');
 
 =item new_device_from_device_id ( ID )
 
+Create new udev device, and fill in information from the sys device and the udev
+database entry. The device is looked-up by a special string:
+
+=over 8
+
+=item b8:2 - block device major:minor
+
+=item c128:1 - char device major:minor
+
+=item n3 - network device ifindex
+
+=item +sound:card29 - kernel driver core subsystem:device name
+
+=back
+
+Return new L<Udev::FFI::Device> object or undef, if device does not exist.
+
+    my $device = $udev->new_device_from_device_id('b8:1');
+
 =item new_device_from_environment ()
 
-E<nbsp>
+Create new udev device, and fill in information from the current process
+environment. This only works reliable if the process is called from a udev rule.
+
+Return new L<Udev::FFI::Device> object or undef, if device does not exist.
+
+    # in udev.rules (for example)
+    # SUBSYSTEM=="backlight", ACTION=="change", IMPORT{program}="/path/script.pl"
+    
+    # in script
+    my $udev = Udev::FFI->new() or
+        die "Can't create Udev::FFI object: $@";
+    my $device = $udev->new_device_from_environment();
+    if(defined $device) {
+        # $device is the device from the udev rule (backlight in this example)
+        # work with $device
 
 =item Udev::FFI::udev_version ()
 
