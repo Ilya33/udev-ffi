@@ -122,13 +122,79 @@ Udev::FFI exposes OO interface to libudev.
 
 - new\_monitor ( \[SOURCE\] )
 - new\_enumerate ()
-- new\_device\_from\_syspath ( SYSPATH )
-- new\_device\_from\_devnum ( TYPE, DEVNUM )
-- new\_device\_from\_subsystem\_sysname ( SUBSYSTEM, SYSNAME )
-- new\_device\_from\_device\_id ( ID )
-- new\_device\_from\_environment ()
 
      
+
+- new\_device\_from\_syspath ( SYSPATH )
+
+    Create new udev device, and fill in information from the sys device and the udev
+    database entry. The syspath is the absolute path to the device, including the
+    sys mount point.
+
+    Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) object or undef, if device does not exist.
+
+        my $device0 = $udev->new_device_from_syspath('/sys/class/block/sda1');
+        my $device1 = $udev->new_device_from_syspath('/sys/class/net/eth0');
+        
+        # ... some code
+        my @devices = $enumerate->get_list_entries();
+        for(@devices) {
+            my $device = $udev->new_device_from_syspath($_);
+        # ... some code
+
+- new\_device\_from\_devnum ( TYPE, DEVNUM )
+
+    Create new udev device, and fill in information from the sys device and the udev
+    database entry. The device is looked-up by its type and major/minor number.
+
+    Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) object or undef, if device does not exist.
+
+        use Udev::FFI::Devnum qw(mkdev);
+        my $device = $udev->new_device_from_devnum('b', mkdev(8, 1));
+
+- new\_device\_from\_subsystem\_sysname ( SUBSYSTEM, SYSNAME )
+
+    Create new udev device, and fill in information from the sys device and the udev
+    database entry. The device is looked up by the subsystem and name string of the
+    device.
+
+    Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) object or undef, if device does not exist.
+
+        my $device0 = $udev->new_device_from_subsystem_sysname('block', 'sda1');
+        my $device1 = $udev->new_device_from_subsystem_sysname('net', 'lo');
+        my $device2 = $udev->new_device_from_subsystem_sysname('mem', 'urandom');
+
+- new\_device\_from\_device\_id ( ID )
+
+    Create new udev device, and fill in information from the sys device and the udev
+    database entry. The device is looked-up by a special string:
+
+    - b8:2 - block device major:minor
+    - c128:1 - char device major:minor
+    - n3 - network device ifindex
+    - +sound:card29 - kernel driver core subsystem:device name
+
+    Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) object or undef, if device does not exist.
+
+        my $device = $udev->new_device_from_device_id('b8:1');
+
+- new\_device\_from\_environment ()
+
+    Create new udev device, and fill in information from the current process
+    environment. This only works reliable if the process is called from a udev rule.
+
+    Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) object or undef, if device does not exist.
+
+        # in udev.rules (for example)
+        # SUBSYSTEM=="backlight", ACTION=="change", IMPORT{program}="/path/script.pl"
+        
+        # in script
+        my $udev = Udev::FFI->new() or
+            die "Can't create Udev::FFI object: $@";
+        my $device = $udev->new_device_from_environment();
+        if(defined $device) {
+            # $device is the device from the udev rule (backlight in this example)
+            # work with $device
 
 - Udev::FFI::udev\_version ()
 
