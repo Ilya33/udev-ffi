@@ -13,7 +13,7 @@ use Udev::FFI::Monitor;
 use Udev::FFI::Enumerate;
 
 
-$Udev::FFI::VERSION = '0.099005';
+$Udev::FFI::VERSION = '0.099_006';
 
 
 
