@@ -428,7 +428,7 @@ sub udev_version {
         local $SIG{__WARN__} = sub {}; # silence shell output if error
 
         if(open my $ph, '-|', $full_path, '--version') {
-            if(<$ph> !~ /^(\d+)\s*$/) {
+            if(<$ph> !~ /^(\d+)\s*$/) { #<$ph> is undefined?
                 $@ = "Can't get udev version from `udevadm` utility";
                 return undef;
             }
