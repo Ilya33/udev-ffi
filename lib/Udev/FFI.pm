@@ -103,9 +103,8 @@ sub new_monitor {
     my $self = shift;
     my $source = shift || 'udev';
 
-    if($source ne 'udev' && $source ne 'kernel') {
-        croak('Valid sources identifiers are "udev" and "kernel"');
-    }
+    croak('Valid sources identifiers are "udev" and "kernel"')
+        if $source ne 'udev' && $source ne 'kernel';
 
     my $monitor = udev_monitor_new_from_netlink($self->{_context}, $source);
     unless(defined($monitor)) {
