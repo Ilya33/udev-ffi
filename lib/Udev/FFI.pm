@@ -410,6 +410,8 @@ directory.
 
 libudev
 
+eudev
+
 L<FFI::Platypus> (Write Perl bindings to non-Perl libraries without C or XS)
 
 L<FFI::CheckLib> (Check that a library is available for FFI)
