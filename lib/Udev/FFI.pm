@@ -384,8 +384,8 @@ Return undef with the error in $@ on failure. Also you can check $! value:
 ENOENT (`udevadm` not found) or EACCES (permission denied).
 
     # simple
-    my $udev_version = Udev::FFI->udev_version()
-        or die "Can't get udev library version: $@";
+    my $udev_version = Udev::FFI->udev_version() or
+        die "Can't get udev library version: $@";
     
     # or catch the error
     use Errno qw( :POSIX );
