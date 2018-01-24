@@ -11,7 +11,8 @@ sub new {
     my $class = shift;
 
     my $self = {
-        _device => shift
+        _device => shift,
+        _udev   => shift
     };
 
     bless $self, $class;
@@ -24,7 +25,7 @@ sub new {
 sub get_udev {
     my $self = shift;
 
-    return udev_device_get_udev($self->{_device});
+    return $self->{_udev};
 }
 
 
@@ -161,7 +162,7 @@ sub get_parent {
     if(defined($device)) {
         udev_device_ref($device);
 
-        return Udev::FFI::Device->new( $device );
+        return Udev::FFI::Device->new($device, $self->{_udev});
     }
 
     return undef;
@@ -177,7 +178,7 @@ sub get_parent_with_subsystem_devtype {
     if(defined($device)) {
         udev_device_ref($device);
 
-        return Udev::FFI::Device->new( $device );
+        return Udev::FFI::Device->new($device, $self->{_udev});
     }
 
     return undef;

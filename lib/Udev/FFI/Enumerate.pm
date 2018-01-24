@@ -11,7 +11,8 @@ sub new {
     my $class = shift;
 
     my $self = {
-        _enumerate => shift
+        _enumerate => shift,
+        _udev      => shift
     };
 
     bless $self, $class;
@@ -24,7 +25,7 @@ sub new {
 sub get_udev {
     my $self = shift;
 
-    return udev_enumerate_get_udev($self->{_enumerate});
+    return $self->{_udev};
 }
 
 

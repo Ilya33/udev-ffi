@@ -49,7 +49,7 @@ sub new_device_from_syspath {
 
     my $device = udev_device_new_from_syspath($self->{_context}, $syspath);
 
-    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
+    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
 }
 
 
@@ -61,7 +61,7 @@ sub new_device_from_devnum {
 
     my $device = udev_device_new_from_devnum($self->{_context}, ord($type), $devnum);
 
-    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
+    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
 }
 
 
@@ -73,7 +73,7 @@ sub new_device_from_subsystem_sysname {
 
     my $device = udev_device_new_from_subsystem_sysname($self->{_context}, $subsystem, $sysname);
 
-    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
+    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
 }
 
 
@@ -84,7 +84,7 @@ sub new_device_from_device_id {
 
     my $device = udev_device_new_from_device_id($self->{_context}, $id);
 
-    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
+    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
 }
 
 
@@ -94,7 +94,7 @@ sub new_device_from_environment {
 
     my $device = udev_device_new_from_environment($self->{_context});
 
-    return defined($device) ?Udev::FFI::Device->new( $device ) :undef;
+    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
 }
 
 
@@ -112,7 +112,7 @@ sub new_monitor {
         return undef;
     }
 
-    return Udev::FFI::Monitor->new($monitor);
+    return Udev::FFI::Monitor->new($monitor, $self);
 }
 
 
@@ -126,14 +126,14 @@ sub new_enumerate {
         return undef;
     }
 
-    return Udev::FFI::Enumerate->new($enumerate);
+    return Udev::FFI::Enumerate->new($enumerate, $self);
 }
 
 
 
 sub DESTROY {
     my $self = shift;
-
+warn 123;
     udev_unref( $self->{_context} );
 }
 
@@ -156,7 +156,7 @@ Udev::FFI - Perl bindings for libudev using ffi.
     use Udev::FFI;
 
     # get udev library version
-    my $udev_version = Udev::FFI->udev_version() or
+    my $udev_version = Udev::FFI::udev_version() or
         die "Can't get udev library version: $@";
 
 
@@ -372,7 +372,7 @@ Return new L<Udev::FFI::Device> object or undef, if device does not exist.
         # $device is the device from the udev rule (backlight in this example)
         # work with $device
 
-=head2 Udev::FFI->udev_version ()
+=head2 Udev::FFI::udev_version ()
 
 Return the version of the udev library. Because the udev library does not
 provide a function to get the version number, this function runs the `udevadm`
@@ -382,12 +382,12 @@ Return undef with the error in $@ on failure. Also you can check $! value:
 ENOENT (`udevadm` not found) or EACCES (permission denied).
 
     # simple
-    my $udev_version = Udev::FFI->udev_version() or
+    my $udev_version = Udev::FFI::udev_version() or
         die "Can't get udev library version: $@";
     
     # or catch the error
     use Errno qw( :POSIX );
-    my $udev_version = Udev::FFI->udev_version();
+    my $udev_version = Udev::FFI::udev_version();
     unless(defined $udev_version) {
         if($!{ENOENT}) {
             # udevadm not found
