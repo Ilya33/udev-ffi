@@ -2,6 +2,9 @@ Revision history for Perl extension Udev-FFI
 
 {{$NEXT}}
 
+0.101000 2018-01-24T19:58:35Z
+    - save reference to udev object in device, enumerate & monitor objects
+
 0.100000 2018-01-12T15:25:28Z
     - fix get_entries bug
 

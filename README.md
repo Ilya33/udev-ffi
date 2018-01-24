@@ -7,7 +7,7 @@ Udev::FFI - Perl bindings for libudev using ffi.
     use Udev::FFI;
 
     # get udev library version
-    my $udev_version = Udev::FFI->udev_version() or
+    my $udev_version = Udev::FFI::udev_version() or
         die "Can't get udev library version: $@";
 
 
@@ -85,8 +85,6 @@ Udev::FFI - Perl bindings for libudev using ffi.
 
             print "Major: $ma\n";
             print "Minor: $mi\n";
-
-            $devnum = undef;
 
             $devnum = makedev($ma, $mi);
             print "Devnum: $devnum\n";
@@ -217,7 +215,7 @@ Return new [Udev::FFI::Device](https://metacpan.org/pod/Udev::FFI::Device) objec
         # $device is the device from the udev rule (backlight in this example)
         # work with $device
 
-## Udev::FFI->udev\_version ()
+## Udev::FFI::udev\_version ()
 
 Return the version of the udev library. Because the udev library does not
 provide a function to get the version number, this function runs the \`udevadm\`
@@ -227,12 +225,12 @@ Return undef with the error in $@ on failure. Also you can check $! value:
 ENOENT (\`udevadm\` not found) or EACCES (permission denied).
 
     # simple
-    my $udev_version = Udev::FFI->udev_version() or
+    my $udev_version = Udev::FFI::udev_version() or
         die "Can't get udev library version: $@";
     
     # or catch the error
     use Errno qw( :POSIX );
-    my $udev_version = Udev::FFI->udev_version();
+    my $udev_version = Udev::FFI::udev_version();
     unless(defined $udev_version) {
         if($!{ENOENT}) {
             # udevadm not found
