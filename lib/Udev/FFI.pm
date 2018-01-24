@@ -133,7 +133,7 @@ sub new_enumerate {
 
 sub DESTROY {
     my $self = shift;
-warn 123;
+
     udev_unref( $self->{_context} );
 }
 
