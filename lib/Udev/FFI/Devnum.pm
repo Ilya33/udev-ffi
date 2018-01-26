@@ -85,8 +85,6 @@ Return device number.
 
 =item L<Udev::FFI> - main Udev::FFI documentation
 
-=item L<Udev::FFI>
-
 =back
 
 =head1 COPYRIGHT AND LICENSE
