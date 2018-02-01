@@ -83,15 +83,8 @@ Return device number.
 
 =over 4
 
-=item L<Udev::FFI> - main Udev::FFI documentation
+=item L<Udev::FFI> main Udev::FFI documentation
 
 =back
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright (C) 2017-2018 by Ilya Pavlov
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
