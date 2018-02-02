@@ -81,10 +81,6 @@ Return device number.
 
 =head1 SEE ALSO
 
-=over 4
-
 =item L<Udev::FFI> main Udev::FFI documentation
-
-=back
 
 =cut

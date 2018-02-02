@@ -25,13 +25,12 @@ $Udev::FFI::VERSION = '0.101_002';
 
 sub new {
     my $class = shift;
-    my $self = {};
 
     if(0 == Udev::FFI::Functions->init()) {
         return undef; # error already in $@
     }
 
-    $self->{_context} = udev_new();
+    my $self = {_context => udev_new()};
     if(!defined($self->{_context})) {
         $@ = "Can't create udev context";
         return undef;
