@@ -2,8 +2,9 @@ Revision history for Perl extension Udev-FFI
 
 {{$NEXT}}
 
-0.101_002 2018-02-01T20:59:47Z
-    - migrate to Module::Build
+0.102000 2018-02-02T21:01:31Z
+    - improve documentation
+    - Module::Build::Tiny -> Module::Build
 
 0.101001 2018-01-26T06:19:02Z
     - fix small memory leak in Udev::FFI::Enumerate
