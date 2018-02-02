@@ -220,6 +220,6 @@ Udev::FFI::Monitor
 
 =head1 SEE ALSO
 
-=item L<Udev::FFI> main Udev::FFI documentation
+L<Udev::FFI> main Udev::FFI documentation
 
 =cut
