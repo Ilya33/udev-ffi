@@ -7,7 +7,7 @@ package Udev::FFI;
 use strict;
 use warnings;
 
-use Carp qw( croak );
+use Carp qw(croak);
 
 use Udev::FFI::Functions qw(:all);
 use Udev::FFI::Device;
