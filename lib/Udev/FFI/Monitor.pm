@@ -193,28 +193,28 @@ Udev::FFI::Monitor
 
 =head1 METHODS
 
-=head2 set_receive_buffer_size ( BYTES )
+=head2 set_receive_buffer_size( BYTES )
 
 Set the size of the kernel socket buffer. This call needs the
 appropriate privileges to succeed.
 
 Returns: 1 on success, otherwise 0 on error.
 
-=head2 filter_by_subsystem_devtype ( SUBSYSTEM [, DEVTYPE] )
+=head2 filter_by_subsystem_devtype( SUBSYSTEM [, DEVTYPE] )
 
-=head2 filter_by_tag ( TAG )
+=head2 filter_by_tag( TAG )
 
-=head2 filter_update ()
+=head2 filter_update()
 
-=head2 filter_remove ()
+=head2 filter_remove()
 
-=head2 start ()
+=head2 start()
 
-=head2 poll ( [TIMEOUT] )
+=head2 poll( [TIMEOUT] )
 
-=head2 is_started ()
+=head2 is_started()
 
-=head2 get_udev ()
+=head2 get_udev()
 
 =head1 SEE ALSO
 

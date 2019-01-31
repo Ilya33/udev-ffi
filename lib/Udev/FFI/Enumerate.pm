@@ -29,26 +29,24 @@ sub get_udev {
 
 
 sub add_match_subsystem {
-    my $self = shift;
-    my $subsystem = shift;
-
-    if(0 != udev_enumerate_add_match_subsystem($self->{_enumerate}, $subsystem)) {
-        return 0;
+    # self, subsystem
+    if (0 == ($! = udev_enumerate_add_match_subsystem($_[0]->{_enumerate}, $_[1]))) {
+        return 1;
     }
 
-    return 1;
+    $! = -$!;
+    return 0;
 }
 
 
 sub add_nomatch_subsystem {
-    my $self = shift;
-    my $subsystem = shift;
-
-    if(0 != udev_enumerate_add_nomatch_subsystem($self->{_enumerate}, $subsystem)) {
-        return 0;
+    # self, subsystem
+    if (0 == ($! = udev_enumerate_add_nomatch_subsystem($_[0]->{_enumerate}, $_[1]))) {
+        return 1;
     }
 
-    return 1;
+    $! = -$!;
+    return 0;
 }
 
 
@@ -226,33 +224,33 @@ Udev::FFI::Enumerate
 
 =head1 METHODS
 
-=head2 add_match_subsystem ( SUBSYSTEM )
+=head2 add_match_subsystem( SUBSYSTEM )
 
-=head2 add_nomatch_subsystem ( SUBSYSTEM )
+=head2 add_nomatch_subsystem( SUBSYSTEM )
 
-=head2 add_match_sysattr ( SYSATTR [, VALUE] )
+=head2 add_match_sysattr( SYSATTR [, VALUE] )
 
-=head2 add_nomatch_sysattr ( SYSATTR [, VALUE] )
+=head2 add_nomatch_sysattr( SYSATTR [, VALUE] )
 
-=head2 add_match_property ( PROPERTY [, VALUE] )
+=head2 add_match_property( PROPERTY [, VALUE] )
 
-=head2 add_match_sysname ( SYSNAME )
+=head2 add_match_sysname( SYSNAME )
 
-=head2 add_match_tag ( TAG )
+=head2 add_match_tag( TAG )
 
-=head2 add_match_parent ( PARENT )
+=head2 add_match_parent( PARENT )
 
-=head2 add_match_is_initialized ()
+=head2 add_match_is_initialized()
 
-=head2 add_syspath ( SYSPATH )
+=head2 add_syspath( SYSPATH )
 
-=head2 scan_devices ()
+=head2 scan_devices()
 
-=head2 scan_subsystems ()
+=head2 scan_subsystems()
 
-=head2 get_list_entries ()
+=head2 get_list_entries()
 
-=head2 get_udev ()
+=head2 get_udev()
 
 =head1 SEE ALSO
 
