@@ -152,7 +152,7 @@ sub scan_devices {
 
 sub scan_subsystems {
     # self
-    if (0 == ($! = udev_enumerate_scan_subsystems($self->{_enumerate}))) {
+    if (0 == ($! = udev_enumerate_scan_subsystems($_[0]->{_enumerate}))) {
         return 1;
     }
 
