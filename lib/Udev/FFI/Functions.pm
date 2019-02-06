@@ -457,10 +457,10 @@ my $_function_not_attach = sub {
 sub get_entries {
     my $entry = shift;
 
-    if(wantarray) {
+    if (wantarray) { # TODO deprecated
         my @a = ();
 
-        while(defined($entry)) {
+        while (defined($entry)) {
             push @a, udev_list_entry_get_name($entry);
             $entry = udev_list_entry_get_next($entry);
         }
@@ -471,7 +471,7 @@ sub get_entries {
 
     my %h = ();
 
-    while(defined($entry)) {
+    while (defined($entry)) {
         $h{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
         $entry = udev_list_entry_get_next($entry);
     }
