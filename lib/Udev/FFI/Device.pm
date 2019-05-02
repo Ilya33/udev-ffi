@@ -104,7 +104,7 @@ sub get_parent {
     my $self = shift;
 
     my $device = udev_device_get_parent( $self->{_device} );
-    if(defined($device)) {
+    if (defined($device)) {
         udev_device_ref($device);
 
         return Udev::FFI::Device->new($device, $self->{_udev});
@@ -120,7 +120,7 @@ sub get_parent_with_subsystem_devtype {
     my $devtype = shift;
 
     my $device = udev_device_get_parent_with_subsystem_devtype( $self->{_device}, $subsystem, $devtype );
-    if(defined($device)) {
+    if (defined($device)) {
         udev_device_ref($device);
 
         return Udev::FFI::Device->new($device, $self->{_udev});
@@ -174,13 +174,13 @@ Udev::FFI::Device
         die "Can't create Udev::FFI object: $@";
     
     my $device = $udev->new_device_from_subsystem_sysname('block', 'sda1');
-    if(defined($device)) {
+    if (defined($device)) {
         print "SYSPATH: ".$device->get_syspath()."\n";
 
-        if(my $fs = $device->get_property_value('ID_FS_TYPE')) {
+        if (my $fs = $device->get_property_value('ID_FS_TYPE')) {
             print "FS: $fs\n";
         }
-        if(my $uuid = $device->get_property_value('ID_FS_UUID')) {
+        if (my $uuid = $device->get_property_value('ID_FS_UUID')) {
             print "UUID: $uuid\n";
         }
     }

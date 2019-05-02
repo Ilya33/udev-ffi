@@ -408,16 +408,16 @@ my $init = 0;
 sub udev_version {
     my $full_path = which('udevadm');
 
-    if(!defined $full_path) {
-        for(@{ +UDEVADM_LOCATIONS }) {
-            if(-f) {
+    if (!defined $full_path) {
+        for (@{ +UDEVADM_LOCATIONS }) {
+            if (-f) {
                 $full_path = $_;
                 last;
             }
         }
     }
 
-    if(!defined $full_path) {
+    if (!defined $full_path) {
         $@ = "Can't find `udevadm` utility";
         return undef;
     }
@@ -426,10 +426,10 @@ sub udev_version {
     {
         local $SIG{__WARN__} = sub {}; # silence shell output if error
 
-        if(open my $ph, '-|', $full_path, '--version') {
+        if (open my $ph, '-|', $full_path, '--version') {
             my $out = <$ph>;
 
-            if(defined($out) && $out =~ /^(\d+)\s*$/) {
+            if (defined($out) && $out =~ /^(\d+)\s*$/) {
                 return $1;
             }
 
@@ -487,7 +487,7 @@ sub init {
     my ($libudev) = find_lib(
         lib => 'udev'
     );
-    if(!$libudev) {
+    if (!$libudev) {
         $@ = "Can't find udev library";
         return 0;
     }
@@ -497,7 +497,7 @@ sub init {
     my $ffi = FFI::Platypus->new;
     $ffi->lib($libudev);
 
-    if(!$ffi->type('dev_t')) {
+    if (!$ffi->type('dev_t')) {
         $@ = "Can't find \"dev_t\" type";
         return 0;
     }
@@ -508,8 +508,8 @@ sub init {
             # since there is no way to deallocate an xsub
             $ffi->attach($funct => $FUNCTIONS->{$funct}{ffi_data}[0] => $FUNCTIONS->{$funct}{ffi_data}[1]);
         };
-        if($@) {
-            if(!exists($FUNCTIONS->{$funct}{since}) || $udev_version >= $FUNCTIONS->{$funct}{since}) {
+        if ($@) {
+            if (!exists($FUNCTIONS->{$funct}{since}) || $udev_version >= $FUNCTIONS->{$funct}{since}) {
                 $@ = $1
                     if $@ =~ m{^(.*)\s+at\s.*line\s\d+.}xms;
 
