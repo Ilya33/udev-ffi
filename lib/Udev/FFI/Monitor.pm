@@ -114,7 +114,7 @@ sub start {
     my $fd = udev_monitor_get_fd($self->{_monitor});
 
     my $fdh;
-    if (!open($fdh, "<&=", $fd)) {
+    unless (open($fdh, "<&=", $fd)) {
         return 0;
     }
 
@@ -174,10 +174,10 @@ Udev::FFI::Monitor
     use Udev::FFI;
     
     my $udev = Udev::FFI->new() or
-        die "Can't create Udev::FFI object: $@";
+        die("Can't create Udev::FFI object: $@");
     
     my $monitor = $udev->new_monitor() or
-        die "Can't create udev monitor: $@.\n";
+        die ("Can't create udev monitor: $@");
     
     $monitor->filter_by_subsystem_devtype('usb');
     

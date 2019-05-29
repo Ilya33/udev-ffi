@@ -171,7 +171,7 @@ Udev::FFI::Device
     use Udev::FFI;
     
     my $udev = Udev::FFI->new() or
-        die "Can't create Udev::FFI object: $@";
+        die("Can't create Udev::FFI object: $@");
     
     my $device = $udev->new_device_from_subsystem_sysname('block', 'sda1');
     if (defined($device)) {

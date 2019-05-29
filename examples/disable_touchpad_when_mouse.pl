@@ -113,11 +113,11 @@ else {
 }
 
 
-for(;;) {
+for (;;) {
     my $device = $monitor->poll(); # blocking read
     my $action = $device->get_action();
 
-    if($action eq 'add' || $action eq 'remove') {
+    if ($action eq 'add' || $action eq 'remove') {
         if (1 == _check_for_mouse_devices()) {
             system(OFF_TOUCHPAD_COMMAND);
         }

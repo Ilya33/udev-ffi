@@ -408,7 +408,7 @@ my $init = 0;
 sub udev_version {
     my $full_path = which('udevadm');
 
-    if (!defined $full_path) {
+    unless (defined($full_path)) {
         for (@{ +UDEVADM_LOCATIONS }) {
             if (-f) {
                 $full_path = $_;
@@ -417,7 +417,7 @@ sub udev_version {
         }
     }
 
-    if (!defined $full_path) {
+    unless (defined($full_path)) {
         $@ = "Can't find `udevadm` utility";
         return undef;
     }
@@ -426,7 +426,7 @@ sub udev_version {
     {
         local $SIG{__WARN__} = sub {}; # silence shell output if error
 
-        if (open my $ph, '-|', $full_path, '--version') {
+        if (open(my $ph, '-|', $full_path, '--version')) {
             my $out = <$ph>;
 
             if (defined($out) && $out =~ /^(\d+)\s*$/) {
@@ -484,10 +484,8 @@ sub init {
     return 1 if $init;
 
 
-    my ($libudev) = find_lib(
-        lib => 'udev'
-    );
-    if (!$libudev) {
+    my ($libudev) = find_lib(lib => 'udev');
+    unless ($libudev) {
         $@ = "Can't find udev library";
         return 0;
     }
@@ -497,12 +495,12 @@ sub init {
     my $ffi = FFI::Platypus->new;
     $ffi->lib($libudev);
 
-    if (!$ffi->type('dev_t')) {
+    unless ($ffi->type('dev_t')) {
         $@ = "Can't find \"dev_t\" type";
         return 0;
     }
 
-    for my $funct (keys %$FUNCTIONS) {
+    for my $funct (keys(%$FUNCTIONS)) {
         eval {
             # attach locks the function and the FFI::Platypus instance into memory permanently,
             # since there is no way to deallocate an xsub
@@ -522,7 +520,7 @@ sub init {
         }
 
         # function attached
-        delete $FUNCTIONS->{$funct};
+        delete($FUNCTIONS->{$funct});
     }
 
     return ++$init;

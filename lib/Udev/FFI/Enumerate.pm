@@ -198,13 +198,13 @@ Udev::FFI::Enumerate
     use Udev::FFI;
     
     my $udev = Udev::FFI->new() or
-        die "Can't create Udev::FFI object: $@";
+        die("Can't create Udev::FFI object: $@");
     
     my $enumerate = $udev->new_enumerate() or
-        die "Can't create enumerate context: $@";
+        die("Can't create enumerate context: $@");
     
     $enumerate->add_match_subsystem('usb');
-    $enumerate->add_match_sysattr('idVendor'); #devices with VID
+    $enumerate->add_match_sysattr('idVendor'); # devices with VID
     
     $enumerate->scan_devices();
     
