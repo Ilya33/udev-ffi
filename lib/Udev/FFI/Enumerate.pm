@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Udev::FFI::Functions qw(:all);
+use Udev::FFI::Helper;
 
 
 
@@ -160,17 +161,7 @@ sub scan_subsystems {
 
 
 sub get_list_entries {
-    my $list_entry = udev_enumerate_get_list_entry($_[0]->{_enumerate});
-
-    if (wantarray) { # TODO deprecated
-        return get_entries($list_entry);
-    }
-
-    if (defined($list_entry)) {
-        return get_entries($list_entry);
-    }
-
-    return undef;
+    return Udev::FFI::Helper::get_entries_all( udev_enumerate_get_list_entry( $_[0]->{_enumerate} ) );
 }
 
 

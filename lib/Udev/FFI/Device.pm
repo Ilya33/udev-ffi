@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Udev::FFI::Functions qw(:all);
+use Udev::FFI::Helper;
 
 
 
@@ -131,19 +132,19 @@ sub get_parent_with_subsystem_devtype {
 
 
 sub get_devlinks_list_entries {
-    return get_entries( udev_device_get_devlinks_list_entry( $_[0]->{_device} ) );
+    return Udev::FFI::Helper::get_entries_all( udev_device_get_devlinks_list_entry( $_[0]->{_device} ) );
 }
 
 sub get_properties_list_entries {
-    return get_entries( udev_device_get_properties_list_entry( $_[0]->{_device} ) );
+    return Udev::FFI::Helper::get_entries_all( udev_device_get_properties_list_entry( $_[0]->{_device} ) );
 }
 
 sub get_tags_list_entries {
-    return get_entries( udev_device_get_tags_list_entry( $_[0]->{_device} ) );
+    return Udev::FFI::Helper::get_entries_all( udev_device_get_tags_list_entry( $_[0]->{_device} ) );
 }
 
 sub get_sysattr_list_entries {
-    return get_entries( udev_device_get_sysattr_list_entry( $_[0]->{_device} ) );
+    return Udev::FFI::Helper::get_entries_all( udev_device_get_sysattr_list_entry( $_[0]->{_device} ) );
 }
 
 

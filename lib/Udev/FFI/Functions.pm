@@ -394,7 +394,7 @@ my $FUNCTIONS = {
 
 
 
-@EXPORT_OK = ( keys(%$FUNCTIONS), qw(get_entries));
+@EXPORT_OK = keys(%$FUNCTIONS);
 
 %EXPORT_TAGS = (
     'all' => \@EXPORT_OK
@@ -447,36 +447,9 @@ sub udev_version {
 my $_function_not_attach = sub {
     my $udev_version = udev_version();
 
-    die "Function '".$_[0]."' not attached from udev library\n".
-        "`udevadm` version: ".(defined($udev_version) ?$udev_version :'unknown')."\n";
+    die("function '".$_[0]."' not attached from udev library\n`udevadm`".
+        "version: ".(defined($udev_version) ?$udev_version :'unknown')."\n");
 };
-
-
-
-sub get_entries {
-    my $entry = shift;
-
-    if (wantarray) { # TODO deprecated
-        my @a = ();
-
-        while (defined($entry)) {
-            push @a, udev_list_entry_get_name($entry);
-            $entry = udev_list_entry_get_next($entry);
-        }
-
-        return @a;
-    }
-
-
-    my %h = ();
-
-    while (defined($entry)) {
-        $h{ udev_list_entry_get_name($entry) } = udev_list_entry_get_value($entry);
-        $entry = udev_list_entry_get_next($entry);
-    }
-
-    return \%h;
-}
 
 
 
@@ -492,7 +465,7 @@ sub init {
 
     my $udev_version = udev_version() || 0;
 
-    my $ffi = FFI::Platypus->new;
+    my $ffi = FFI::Platypus->new();
     $ffi->lib($libudev);
 
     unless ($ffi->type('dev_t')) {
