@@ -447,7 +447,7 @@ sub udev_version {
 my $_function_not_attach = sub {
     my $udev_version = udev_version();
 
-    die("function '".$_[0]."' not attached from udev library\n`udevadm`".
+    die("function '".$_[0]."' not attached from udev library\n`udevadm` ".
         "version: ".(defined($udev_version) ?$udev_version :'unknown')."\n");
 };
 
