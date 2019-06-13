@@ -67,7 +67,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.104001",
+   "version" : "0.104002",
    "x_authority" : "cpan:ILUX",
    "x_contributors" : [
       "Mohammad S Anwar <mohammad.anwar@yahoo.com>"
