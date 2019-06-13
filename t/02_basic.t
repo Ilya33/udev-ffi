@@ -11,9 +11,9 @@ diag($@)
 
 isnt($udev_version, undef, "Get udev library version");
 
-my $udev = eval { Udev::FFI->new() };
+my $udev = eval { return Udev::FFI->new() };
 diag("Can't create Udev::FFI object. Udev library version is ".
-    (defined($udev_version) ?$udev_version :'unknown')." Error message: $@.")
-    if $@;
+    (defined($udev_version) ?$udev_version :'unknown').'.')
+    unless defined($udev);
 
 isa_ok $udev, 'Udev::FFI';
