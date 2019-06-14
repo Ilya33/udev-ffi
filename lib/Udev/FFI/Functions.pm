@@ -426,6 +426,7 @@ sub udev_version {
     {
         local $SIG{__WARN__} = sub {}; # silence shell output if error
 
+        # TODO timeout
         if (open(my $ph, '-|', $full_path, '--version')) {
             my $out = <$ph>;
 

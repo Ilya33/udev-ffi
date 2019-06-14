@@ -421,8 +421,7 @@ Udev::FFI supports libudev 175 or newer. Older versions may work too, but it was
 not tested.
 
 Please report any bugs through the web interface at
-L<https://github.com/Ilya33/udev-ffi/issues> or via email to the author. Patches
-are always welcome.
+L<https://github.com/Ilya33/udev-ffi/issues>. Patches are always welcome.
 
 =head1 AUTHOR
 
