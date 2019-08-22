@@ -34,13 +34,6 @@ sub makedev {
 
 
 
-sub mkdev { # 2017-12-19
-    warn "mkdev is deprecated, use makedev instead\n";
-    return makedev(@_);
-}
-
-
-
 1;
 
 
