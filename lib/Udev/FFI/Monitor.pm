@@ -20,7 +20,7 @@ sub new {
         _is_started => 0
     };
 
-    bless $self, $class;
+    bless($self, $class);
 
     return $self;
 }
@@ -106,7 +106,7 @@ sub start {
     return 1
         if $self->{_is_started};
 
-    if (0 != ($! = udev_monitor_enable_receiving( $self->{_monitor} ))) {
+    if (0 != ($! = udev_monitor_enable_receiving($self->{_monitor}))) {
         $! = -$!;
         return 0;
     }
@@ -135,9 +135,9 @@ sub poll {
         unless $self->{_is_started};
 
     if ($self->{_select}->can_read($timeout)) {
-        my $device = udev_monitor_receive_device( $self->{_monitor} );
+        my $device = udev_monitor_receive_device($self->{_monitor});
 
-        return Udev::FFI::Device->new( $device );
+        return Udev::FFI::Device->new($device);
     }
 
     return undef;
@@ -152,7 +152,7 @@ sub is_started {
 
 
 sub DESTROY {
-    udev_monitor_unref( $_[0]->{_monitor} );
+    udev_monitor_unref($_[0]->{_monitor});
 }
 
 

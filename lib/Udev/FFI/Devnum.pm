@@ -9,7 +9,7 @@ our (@ISA, @EXPORT_OK, %EXPORT_TAGS);
 require Exporter;
 @ISA = qw(Exporter);
 
-@EXPORT_OK = qw(major minor makedev mkdev);
+@EXPORT_OK = qw(major minor makedev);
 
 %EXPORT_TAGS = (
     'all' => \@EXPORT_OK

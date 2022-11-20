@@ -455,16 +455,18 @@ my $_function_not_attach = sub {
 
 
 sub init {
-    return 1 if $init;
-
+    return 1
+        if 1 == $init;
 
     my ($libudev) = find_lib(lib => 'udev');
-    unless ($libudev) {
+    unless (defined($libudev) || $libudev eq '') {
         $@ = "Can't find udev library";
         return 0;
     }
 
-    my $udev_version = udev_version() || 0;
+    my $udev_version = udev_version();
+    $udev_version = 0
+        unless defined($udev_version);
 
     my $ffi = FFI::Platypus->new();
     $ffi->lib($libudev);

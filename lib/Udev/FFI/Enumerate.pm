@@ -16,7 +16,7 @@ sub new {
         _udev      => shift
     };
 
-    bless $self, $class;
+    bless($self, $class);
 
     return $self;
 }

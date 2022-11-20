@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 2;
+use Test::More;
 
 use FFI::CheckLib;
 use Udev::FFI;
@@ -9,8 +9,8 @@ use Udev::FFI;
 
 
 sub _print_paths {
-    my ($libudev)       = find_lib(lib => 'udev');
-    my (@libs)          = find_lib(lib => 'udev');
+    my ($libudev)   = find_lib(lib => 'udev');
+    my (@libs)      = find_lib(lib => 'udev');
 
     return "Udev library path: $libudev. All possible paths: ".
         join(' :: ', @libs);
@@ -28,7 +28,10 @@ isnt($udev_version, undef, "Get udev library version");
 my $udev = Udev::FFI->new();
 isnt($udev, undef, "Create new Udev::FFI object");
 
-BAIL_OUT "Can't create new Udev::FFI object. Udev library version is ".
-    (defined($udev_version) ?$udev_version :'unknown').'. '._print_paths().
+BAIL_OUT("Can't create new Udev::FFI object. Udev library version is ".
+    (defined($udev_version) ? $udev_version : 'unknown').'. '._print_paths().
     ". Error message: $@"
+)
     unless defined($udev);
+
+done_testing();

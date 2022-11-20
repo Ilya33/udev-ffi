@@ -7,8 +7,6 @@ package Udev::FFI;
 use strict;
 use warnings;
 
-use Carp qw(croak);
-
 use Udev::FFI::Functions qw(:all);
 use Udev::FFI::Device;
 use Udev::FFI::Monitor;
@@ -36,7 +34,7 @@ sub new {
         return undef;
     }
 
-    bless $self, $class;
+    bless($self, $class);
     return $self;
 }
 
@@ -48,7 +46,7 @@ sub new_device_from_syspath {
 
     my $device = udev_device_new_from_syspath($self->{_context}, $syspath);
 
-    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
+    return defined($device) ? Udev::FFI::Device->new($device, $self) : undef;
 }
 
 
@@ -60,7 +58,7 @@ sub new_device_from_devnum {
 
     my $device = udev_device_new_from_devnum($self->{_context}, ord($type), $devnum);
 
-    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
+    return defined($device) ? Udev::FFI::Device->new($device, $self) : undef;
 }
 
 
@@ -72,7 +70,7 @@ sub new_device_from_subsystem_sysname {
 
     my $device = udev_device_new_from_subsystem_sysname($self->{_context}, $subsystem, $sysname);
 
-    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
+    return defined($device) ? Udev::FFI::Device->new($device, $self) : undef;
 }
 
 
@@ -83,7 +81,7 @@ sub new_device_from_device_id {
 
     my $device = udev_device_new_from_device_id($self->{_context}, $id);
 
-    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
+    return defined($device) ? Udev::FFI::Device->new($device, $self) : undef;
 }
 
 
@@ -93,17 +91,17 @@ sub new_device_from_environment {
 
     my $device = udev_device_new_from_environment($self->{_context});
 
-    return defined($device) ?Udev::FFI::Device->new($device, $self) :undef;
+    return defined($device) ? Udev::FFI::Device->new($device, $self) : undef;
 }
 
 
 
 sub new_monitor {
     my $self = shift;
-    my $source = shift || 'udev';
+    my $source = shift;
 
-    croak('Valid sources identifiers are "udev" and "kernel"')
-        if $source ne 'udev' && $source ne 'kernel';
+    $source = 'udev'
+        unless defined($source);
 
     my $monitor = udev_monitor_new_from_netlink($self->{_context}, $source);
     unless (defined($monitor)) {
@@ -131,9 +129,7 @@ sub new_enumerate {
 
 
 sub DESTROY {
-    my $self = shift;
-
-    udev_unref( $self->{_context} );
+    udev_unref($_[0]->{_context});
 }
 
 

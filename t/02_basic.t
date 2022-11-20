@@ -1,9 +1,11 @@
 use strict;
 use warnings;
 
-use Test::More tests => 1;
+use Test::More;
 
 use Udev::FFI;
 
 my $udev = eval { return Udev::FFI->new() };
-isa_ok $udev, 'Udev::FFI';
+isa_ok($udev, 'Udev::FFI');
+
+done_testing();
