@@ -101,7 +101,7 @@ sub new_monitor {
     my $source = shift;
 
     $source = 'udev'
-        unless defined($source);
+        unless (defined($source));
 
     my $monitor = udev_monitor_new_from_netlink($self->{_context}, $source);
     unless (defined($monitor)) {
@@ -413,7 +413,7 @@ L<FFI::CheckLib> (Check that a library is available for FFI)
 
 =head1 BUGS AND LIMITATIONS
 
-Udev::FFI supports libudev 175 or newer. Older versions may work too, but it was
+Udev::FFI supports libudev 174 or newer. Older versions may work too, but it was
 not tested.
 
 Please report any bugs through the web interface at

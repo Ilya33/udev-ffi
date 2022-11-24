@@ -10,7 +10,7 @@ use Udev::FFI;
 my $vid = $ARGV[0];
 my $pid = $ARGV[1];
 
-if (!defined($vid) && !defined($pid)) {
+if (!defined($vid) || !defined($pid)) {
     die("Usage: find_by_vid_pid.pl VID PID\nExample: find_by_vid_pid.pl bced 0b08\n");
 }
 

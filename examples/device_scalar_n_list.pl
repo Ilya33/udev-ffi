@@ -10,7 +10,7 @@ use Udev::FFI;
 
 
 die("Usage: device_scalar_n_list.pl NETWORK_INTERFACE_NAME")
-    unless defined $ARGV[0];
+    unless (defined($ARGV[0]));
 
 my $udev = Udev::FFI->new() or
     die("Can't create Udev::FFI object: $@.\n");
