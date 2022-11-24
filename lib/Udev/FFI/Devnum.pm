@@ -1,4 +1,3 @@
-# Udev::FFI::Devnum - Copyright (C) 2017-2019 Ilya Pavlov
 package Udev::FFI::Devnum;
 
 use strict;
