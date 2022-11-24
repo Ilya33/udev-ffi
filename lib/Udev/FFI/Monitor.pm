@@ -11,6 +11,7 @@ use Udev::FFI::Functions qw(:all);
 use Udev::FFI::Device;
 
 
+
 sub new {
     my $class = shift;
 
