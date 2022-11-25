@@ -96,7 +96,7 @@ my $FUNCTIONS = {
     # struct udev_device *udev_device_new_from_device_id(struct udev *udev, const char *id);
     'udev_device_new_from_device_id' => {
         ffi_data => [ ['opaque', 'string'], 'opaque' ],
-        since    => 189
+        since    => 189,
     },
 
     # struct udev_device *udev_device_new_from_environment(struct udev *udev);
@@ -215,7 +215,7 @@ my $FUNCTIONS = {
     #int udev_device_set_sysattr_value(struct udev_device *udev_device, const char *sysattr, char *value);
     'udev_device_set_sysattr_value' => {
         ffi_data => [ ['opaque', 'string', 'string'], 'int' ],
-        since    => 199
+        since    => 199,
     },
 
     #int udev_device_has_tag(struct udev_device *udev_device, const char *tag);
@@ -359,7 +359,8 @@ my $FUNCTIONS = {
 
     # int udev_enumerate_add_match_parent(struct udev_enumerate *udev_enumerate, struct udev_device *parent);
     'udev_enumerate_add_match_parent' => {
-        ffi_data => [ ['opaque', 'opaque'], 'int' ]
+        ffi_data => [ ['opaque', 'opaque'], 'int' ],
+        since    => 172,
     },
 
     # int udev_enumerate_add_match_is_initialized(struct udev_enumerate *udev_enumerate);
