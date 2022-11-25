@@ -220,7 +220,8 @@ my $FUNCTIONS = {
 
     #int udev_device_has_tag(struct udev_device *udev_device, const char *tag);
     'udev_device_has_tag' => {
-        ffi_data => [ ['opaque', 'string'], 'int' ]
+        ffi_data => [ ['opaque', 'string'], 'int' ],
+        since    => 172,
     },
 
 
