@@ -409,7 +409,7 @@ L<FFI::CheckLib> (Check that a library is available for FFI)
 
 =head1 BUGS AND LIMITATIONS
 
-Udev::FFI supports libudev 172 or newer. Older versions may work too, but it was
+Udev::FFI supports libudev 171 or newer. Older versions may work too, but it was
 not tested.
 
 Please report any bugs through the web interface at
