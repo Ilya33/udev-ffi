@@ -176,13 +176,13 @@ Udev::FFI::Device
     
     my $device = $udev->new_device_from_subsystem_sysname('block', 'sda1');
     if (defined($device)) {
-        print "SYSPATH: ".$device->get_syspath()."\n";
+        print("SYSPATH: ".$device->get_syspath()."\n");
 
         if (my $fs = $device->get_property_value('ID_FS_TYPE')) {
-            print "FS: $fs\n";
+            print("FS: $fs\n");
         }
         if (my $uuid = $device->get_property_value('ID_FS_UUID')) {
-            print "UUID: $uuid\n";
+            print("UUID: $uuid\n");
         }
     }
 

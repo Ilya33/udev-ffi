@@ -178,7 +178,7 @@ Udev::FFI::Monitor
         die("Can't create Udev::FFI object: $@");
     
     my $monitor = $udev->new_monitor() or
-        die ("Can't create udev monitor: $@");
+        die("Can't create udev monitor: $@");
     
     $monitor->filter_by_subsystem_devtype('usb');
     
@@ -187,9 +187,9 @@ Udev::FFI::Monitor
     for (;;) {
         my $device = $monitor->poll(); # blocking read
     
-        print 'ACTION: '.$device->get_action()."\n";
-        print 'SYSNAME: '.$device->get_sysname()."\n";
-        print 'DEVPATH: '.$device->get_devpath()."\n";
+        print('ACTION: '.$device->get_action()."\n");
+        print('SYSNAME: '.$device->get_sysname()."\n");
+        print('DEVPATH: '.$device->get_devpath()."\n");
     }
 
 =head1 METHODS
