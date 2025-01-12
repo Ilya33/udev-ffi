@@ -51,7 +51,7 @@
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Test2" : "1.302207"
          }
       }
    },
@@ -67,7 +67,7 @@
          "web" : "https://github.com/Ilya33/udev-ffi"
       }
    },
-   "version" : "0.105001",
+   "version" : "0.105002",
    "x_authority" : "cpan:ILUX",
    "x_contributors" : [
       "Ilya Pavlov <fsilux@gmail.com>",
