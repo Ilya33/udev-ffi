@@ -8,7 +8,7 @@ use Udev::FFI::Device;
 use Udev::FFI::Monitor;
 use Udev::FFI::Enumerate;
 
-$Udev::FFI::VERSION = '0.105000';
+$Udev::FFI::VERSION = '0.105001';
 
 *Udev::FFI::udev_version = \&Udev::FFI::Functions::udev_version;
 
